@@ -60,5 +60,7 @@ I have a "goodnight" program that gets run when I'm in bed.  This program turns 
 
 While in goodnight mode, I can turn on "overnight" mode, which turns on lights (dim/night lights style) from the MBR to the kitchen.  Useful for when I get up in the middle of the night and want a glass of water.  Goodnight program again turns it all off again.
 
+I have ceiling fan controls that have 4 states: off, low, medium, high.  For some reason, I've not seen home automation software that renders a control for the UI that has 4 states.  Usually they have on/off button/switch and a slider, as if the fan is a dimmer.
+
 These are just a few use cases.  The system should allow whatever you can conceive and that there is technology to support.
 
