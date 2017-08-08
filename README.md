@@ -64,3 +64,19 @@ I have ceiling fan controls that have 4 states: off, low, medium, high.  For som
 
 These are just a few use cases.  The system should allow whatever you can conceive and that there is technology to support.
 
+## DNS setup
+
+I have three  suggestions for managing your DHCP address assignments
+
+First, I set my NETMASK to 255.255.0.0.  Most people probably just use up to 254 IP addresses  for their LAN.  This NETMASK allows you to use any IP address in the 192.168.*.* range.  That is, 192.168.0.*, 192.168.1.*, 192.168.2.*, and so on.  You now have 65536 IP addresses to assign as you see fit.
+
+Second, I set up dnsmasq to assign a static IP to absolutely every device that's normally in my home.  That includes my TVs, my harmony hubs, the TiVo DVRs and set top boxes, my phones and tablets, my SmartThings hub...  EVERY device!
+
+Third, in order to have a lot of flexibility to adding devices of a particular type (home theater, mobile devices, etc.), I assign a block of 255 IPs to the categories:
+
+- 192.168.0.* - my router/gateway, my time capsule, etc.
+- 192.168.1.* - my computers and laptops
+- 192.168.2.* - my mobile devices (phones, tablets)
+- 192.168.3.* - my home automation devices (amazon echo, ring doorbell, smartthings hub, thermostat, fitbit scale, etc.)
+- 192.168.4.* - my home entertainment devices (smart tvs, TiVo defices, harmony remotes, roku, apple tv, audo receivers, etc.)
+
