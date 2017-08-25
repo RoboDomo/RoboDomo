@@ -1,7 +1,7 @@
-# autodomo
-Home for the autodomo home automation suite
+# RoboDomo
+Home for the RoboDomo home automation suite
 
-## Goals for autodomo
+## Goals for RoboDomo
 
 1. Node JS, JavaScript based core and UI.
 2. MQTT real-time interfaces.
