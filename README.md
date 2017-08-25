@@ -48,6 +48,16 @@ to the bedroom location.
 
 ![Dashboard iPad](https://raw.githubusercontent.com/RoboDomo/RoboDomo/master/screenshots/Dashboard-Phone.png)
 
+Tapping on a tile brings you to the controls screens.  This screenshot
+shows what the TiVo control screen looks like on iPad.  Note there are 5 tabs, one for
+each TiVo DVR/Mini in the house.  The volume controls are generic and for the Theater TiVo
+controls the Denon AVR volume.  This kind of mash up puts the "smart" in "smart home controls."
+Also note the favorites dropdown, which is individually configurable per
+TiVo, as well as the History buttons, which is a custom feature inplemented
+in RoboDomo.
+
+![Dashboard iPad](https://raw.githubusercontent.com/RoboDomo/RoboDomo/master/screenshots/TiVo-iPad.png)
+
 More screenshots here:
 https://github.com/RoboDomo/RoboDomo/tree/master/screenshots
 
