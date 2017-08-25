@@ -42,6 +42,15 @@ you care about at a glance.
 
 ![Dashboard iPad](https://raw.githubusercontent.com/RoboDomo/RoboDomo/master/screenshots/Dashboard-iPad.png)
 
+You might have a phone on your nightstand or on the wall in the bedroom.  The dashboard
+for its screen would have different tiles with information/controls more suited
+to the bedroom location.
+
+![Dashboard iPad](https://raw.githubusercontent.com/RoboDomo/RoboDomo/master/screenshots/Dashboard-Phon.png)
+
+More screenshots here:
+https://github.com/RoboDomo/RoboDomo/tree/master/screenshots
+
 ## AutoDomo in action (use cases)
 
 I live in the desert and have a swimming pool.  
