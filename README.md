@@ -77,7 +77,6 @@ to expand on what Rules can do: sunset/sunrise are two triggers, a motion sensor
 detecting presence would be another trigger, countdown timers would be another
 so devices can be scheduled to turn off after some amount of time (for example).
 
-
 ## Screenshots
 This is the RoboDomo dashboard screen on iPad.  There are two dashboards
 defined with tabs at the top to select between the two.  You might hang an iPad or
