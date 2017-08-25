@@ -9,6 +9,7 @@ Home for the RoboDomo home automation suite
 4. Ideally eliminate the cloud altogether.
 5. Alexa and/or Google Home integration.
 6. Dashboard/tiles mode, suitable for devices hung on the wall or cheap phone on the nightstand.
+7. Dockerize and separate concerns, allowing for plugability and simplification of controls and status reporting.
 
 ## History
 
@@ -106,4 +107,17 @@ Third, in order to have a lot of flexibility to adding devices of a particular t
 - 192.168.2.* - my mobile devices (phones, tablets)
 - 192.168.3.* - my home automation devices (amazon echo, ring doorbell, smartthings hub, thermostat, fitbit scale, etc.)
 - 192.168.4.* - my home entertainment devices (smart tvs, TiVo defices, harmony remotes, roku, apple tv, audo receivers, etc.)
+
+
+## Microservices / Docker
+
+Each of the microservices are available through GitHub repositories:
+https://github.com/RoboDomo
+
+Alternatively, you can simply run the pre-built docker container images pulled
+directly from DockerHub:
+https://hub.docker.com/u/robodomo/dashboard/
+
+Instructions for configuration and running each microservice is in the README
+in the GitHub repository for each one.
 
