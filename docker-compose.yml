@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+
+  web:
+    build: .
+    volumes:
+      - ./:/usr/src/app
+    command: ./node_modules/.bin/nodemon --verbose -L --debug=0.0.0.0:2375 -x "node server/index.js"
+#    command: ls
+#    command: node server/index.js
+    ports:
+      - 3000:3000
+      - 2375:2375
+#    networks:
+#      - all
+    environment:
+      - TZ=America/Los_Angeles
+      - HOME=/usr/src/app
+      - NODE_ENV=development
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DEBUG=*,-babel*,-express*,-engine*,-socket.io*,-superagent
+volumes:
+  node_modules:
+

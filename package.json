@@ -1,0 +1,72 @@
+{
+  "name": "react-hot-loader-minimal-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wkwiatek/react-hot-loader-minimal-boilerplate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wkwiatek/react-hot-loader-minimal-boilerplate/issues"
+  },
+  "homepage": "https://github.com/wkwiatek/react-hot-loader-minimal-boilerplate#readme",
+  "dependencies": {
+    "autelis-microservice": "github:RoboDomo/autelis-microservice",
+    "bootstrap3": "^3.3.5",
+    "bowser": "^1.7.1",
+    "bravia": "^1.2.0",
+    "chalk": "^2.1.0",
+    "debug": "^2.6.8",
+    "eventsource": "^1.0.5",
+    "express": "^4.15.4",
+    "flexboxgrid": "^6.3.1",
+    "halogen": "^0.2.0",
+    "harmonyhubjs-client": "github:robodomo/harmonyhubjs-client",
+    "history": "^4.6.3",
+    "jquery": "^3.2.1",
+    "lgtv2": "^1.4.0",
+    "material-design-icons": "^3.0.1",
+    "material-ui": "^0.19.0",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.11.7",
+    "mqtt": "^2.11.0",
+    "parameterize": "0.0.7",
+    "postcss": "^6.0.9",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
+    "react-bootstrap-slider": "^2.0.0",
+    "react-bootstrap-toggle": "^2.0.8",
+    "react-dom": "^15.6.1",
+    "react-nest-thermostat": "^1.0.8",
+    "react-numeric-input": "^2.1.0",
+    "react-tap-event-plugin": "^2.0.1",
+    "react-toolbox": "^2.0.0-beta.12",
+    "superagent": "^3.5.2",
+    "wake_on_lan": "0.0.4",
+    "xml2js": "^0.4.18"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^6.4.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "node-sass": "^4.5.3",
+    "nodemon": "^1.11.0",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^2.7.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.7.1",
+    "webpack-hot-middleware": "^2.18.2"
+  }
+}
