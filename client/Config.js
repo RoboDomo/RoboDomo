@@ -32,9 +32,9 @@ const screenSize = function () {
 }()
 
 export default {
-    name:          'RoboDomo Home Automation Server',
+    name:          'RoboDomo Home Automation System',
     version:       '1.0.0',
-    location:      '78877 Falsetto Dr',
+    location:      'RoboDomo',
     mqtt:          {
         // host is the host running mqtt server
         host:        'ha',
