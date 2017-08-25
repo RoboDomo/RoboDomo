@@ -70,6 +70,12 @@ back to GitHub.
 10. Long term testing.  The microservices seem robust enough, but over the long term,
 bugs have cropped up.  These need to be tightened up so the microservices
 do appropriate retry and handle failures gracefully in all cases.
+11. Rules are done programmatically through its own custom microservice.  The
+example implementatkon simply turns on the garden/outdoor lighting at
+sunset and turns them off at sunrise.  Triggers need to be implemented
+to expand on what Rules can do: sunset/sunrise are two triggers, a motion sensor
+detecting presence would be another trigger, countdown timers would be another
+so devices can be scheduled to turn off after some amount of time (for example).
 
 
 ## Screenshots
