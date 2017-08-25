@@ -25,6 +25,8 @@ Decoupling the UI from the back end allows anyone to implement their own UI.  Th
 The UI is responsive at the JavaScript level.  The code detects small screen and renders views designed for small screen, vs. trying to make a one-size-fits-all scheme work.
 
 ## Initial device support
+All of these things are already working:
+
 1. Autelis Pool Control
 2. Sony Bravia TVs
 3. Denon AVR
@@ -34,6 +36,41 @@ The UI is responsive at the JavaScript level.  The code detects small screen and
 7. TiVo DVR AND Mini (set top box)
 8. TV Guide info provided thorugh Schedules Direct (a mere $25/year subscription fee)
 9. Weather provided by Nest
+
+## Roadmap
+
+The roadmap, or things that need to be done, include but are not limited to:
+
+1. Configuration is currently done via environment variables set for the microservices and
+a single JavaScript Config.js file.  Configuration should be done via
+a WWW interface, which is already under construction.  See the screenshots
+to get an idea where it's headed.  That's not at all working enough to
+use in practice, but it's coming along nicely.  The microservices
+should get their configuration from the new setup schee (likely from
+a mongodb database).
+2. The Web App uses Twitter Bootstrap for styling, the Setup App uses
+material-ui.  While the Bootstrap look is decent, moving it all to
+material-ui is in the cards.
+3. Even better mash up kinds of screens, beyond what dashboards can do.
+For example, a theater screen that has buttons for the ceiling fan,
+to control the TiVo, Smart TV, and AVR, control the A/C, and buttons
+to pause and resume the TV (turning on / off lights) for bathroom breaks.
+4. Add controls and microservices for devices beyond the ones initially supported.
+Samsung TVs are next on my list, but anyone who wants to contibute is
+welcome to.  Contact me by creating an issue if you are interested.
+5. This is not a commercial product.  I hope people will freely use it and contribute
+if it suits their needs.  The license info/file for the projects
+need to be made clear (for each repo).
+6. DockerHub has virtually no content other than the actual container
+images.  Those pages need to be done up with documentation and links
+back to GitHub.
+7. Versioning. Right now everything is 1.0.0 and :latest (on DockerHub)
+8. Unit testing (Mocha)
+9. Continuous integration.
+10. Long term testing.  The microservices seem robust enough, but over the long term,
+bugs have cropped up.  These need to be tightened up so the microservices
+do appropriate retry and handle failures gracefully in all cases.
+
 
 ## Screenshots
 This is the RoboDomo dashboard screen on iPad.  There are two dashboards
