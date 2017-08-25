@@ -96,9 +96,10 @@ export default class SmartThings extends React.Component {
             case 'presence':
                 return null
             default:
-                return (
-                    <div key={key}>Unknown {thing.type}</div>
-                )
+                return null
+                // return (
+                //     <div key={key}>Unknown {thing.type}</div>
+                // )
         }
     }
 

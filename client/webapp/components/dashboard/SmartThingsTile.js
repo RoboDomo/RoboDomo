@@ -64,9 +64,10 @@ export default class SmartThingsTile extends React.Component {
             case 'presence':
                 return null
             default:
-                return (
-                    <div>Unknown {thing.type}</div>
-                )
+                return null
+                // return case(
+                //     <div>Unknown {thing.type}</div>
+                // )
         }
     }
 
