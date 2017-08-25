@@ -46,7 +46,7 @@ You might have a phone on your nightstand or on the wall in the bedroom.  The da
 for its screen would have different tiles with information/controls more suited
 to the bedroom location.
 
-![Dashboard iPad](https://raw.githubusercontent.com/RoboDomo/RoboDomo/master/screenshots/Dashboard-Phon.png)
+![Dashboard iPad](https://raw.githubusercontent.com/RoboDomo/RoboDomo/master/screenshots/Dashboard-Phone.png)
 
 More screenshots here:
 https://github.com/RoboDomo/RoboDomo/tree/master/screenshots
