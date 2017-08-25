@@ -34,6 +34,9 @@ The UI is responsive at the JavaScript level.  The code detects small screen and
 8. TV Guide info provided thorugh Schedules Direct (a mere $25/year subscription fee)
 9. Weather provided by Nest
 
+## Screenshots
+![Dashboard iPad](https://raw.githubusercontent.com/RoboDomo/RoboDomo/master/screenshots/Dashboard-iPad.png)
+
 ## AutoDomo in action (use cases)
 
 I live in the desert and have a swimming pool.  
