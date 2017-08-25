@@ -35,6 +35,11 @@ The UI is responsive at the JavaScript level.  The code detects small screen and
 9. Weather provided by Nest
 
 ## Screenshots
+This is the RoboDomo dashboard screen on iPad.  There are two dashboards
+defined with tabs at the top to select between the two.  You might hang an iPad or
+other tablet on the wall and have this screen showing 99% of the time.  Everything
+you care about at a glance.
+
 ![Dashboard iPad](https://raw.githubusercontent.com/RoboDomo/RoboDomo/master/screenshots/Dashboard-iPad.png)
 
 ## AutoDomo in action (use cases)
