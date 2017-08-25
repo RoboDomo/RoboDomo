@@ -54,7 +54,7 @@ each TiVo DVR/Mini in the house.  The volume controls are generic and for the Th
 controls the Denon AVR volume.  This kind of mash up puts the "smart" in "smart home controls."
 Also note the favorites dropdown, which is individually configurable per
 TiVo, as well as the History buttons, which is a custom feature inplemented
-in RoboDomo.
+in RoboDomo.  The station logos are a feature enabled by the SchedulesDirect integration.
 
 ![Dashboard iPad](https://raw.githubusercontent.com/RoboDomo/RoboDomo/master/screenshots/TiVo-iPad.png)
 
