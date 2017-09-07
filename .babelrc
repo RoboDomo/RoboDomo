@@ -10,6 +10,14 @@
     "react"
   ],
   "plugins": [
-    "react-hot-loader/babel"
-  ]
+    "react-hot-loader/babel",
+    "transform-object-rest-spread",
+    "transform-function-bind",
+    ["transform-class-properties", { "loose": true }]
+  ],
+  "env": {
+      "test": {
+          "plugins": ["transform-es2015-modules-commonjs"]
+      }
+  }
 }

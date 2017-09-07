@@ -5,6 +5,10 @@ import ListGroupItem from 'react-bootstrap/lib/ListGroupItem'
 
 import Tile from './Tile'
 
+const dayNames = [
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+]
+
 export default class ClockTile extends React.Component {
     constructor(props) {
         super(props)
@@ -21,7 +25,7 @@ export default class ClockTile extends React.Component {
                         {this.state.time}
                         <span style={{fontSize: 40}}>{this.state.seconds}</span>
                     </div>
-                    <div>{this.state.date}</div>
+                    <div>{this.state.day} {this.state.date}</div>
                 </Tile>
             )
         }
@@ -37,6 +41,7 @@ export default class ClockTile extends React.Component {
                         {this.state.time}
                         <span style={{fontSize: 40}}>{this.state.seconds}</span>
                     </div>
+                    <div style={{fontSize: 30}}>{this.state.day}</div>
                     <div style={{fontSize: 20}}>{this.state.date}</div>
                 </div>
             </Tile>
@@ -54,6 +59,7 @@ export default class ClockTile extends React.Component {
                   seconds = sec.length === 1 ? ('0' + sec) : sec
 
             this.setState({
+                day:     dayNames[d.getDay()],
                 time:    (hour || '12') + ':' + minutes,
                 seconds: seconds,
                 date:    d.toLocaleDateString()

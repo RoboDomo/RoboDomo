@@ -5,6 +5,8 @@ import Label from 'react-bootstrap/lib/Label'
 
 import MQTT from '../../../../lib/MQTT'
 
+import Tile from '../Tile'
+
 export default class Dimmer extends React.Component {
     constructor(props) {
         super(props)
@@ -51,23 +53,28 @@ export default class Dimmer extends React.Component {
 
         if (state.switch === 'off') {
             return (
-                <div
+                <Tile
                     style={{textAlign: 'center'}}
                     onClick={this.onClick}
                 >
-                    <div>{props.label}</div>
-                    <div style={{fontSize: 30}}>Off</div>
-                </div>
+                    <div>
+                        <div>{props.label}</div>
+                        <div style={{fontSize: 30, textAlign: 'center'}}>Off</div>
+                    </div>
+                </Tile>
             )
         }
         return (
-            <div
+            <Tile
+                backgroundColor="yellow"
                 style={{textAlign: 'center'}}
                 onClick={this.onClick}
             >
-                <div>{props.label}</div>
-                <div style={{fontSize: 30}}>On</div>
-            </div>
+                <div>
+                    <div>{props.label}</div>
+                    <div style={{fontSize: 30, textAlign: 'center'}}>On</div>
+                </div>
+            </Tile>
         )
     }
 
@@ -89,8 +96,6 @@ export default class Dimmer extends React.Component {
     }
 
     onClick(e) {
-        e.stopPropagation()
-
         if (this.state.switch === 'on') {
             this.setState({switch: 'off'})
             MQTT.publish(this.set_topic + 'switch/set', 'off')

@@ -4,6 +4,7 @@ import React from 'react'
 import MQTTButton from '../../../common/MQTTButton'
 import Tile from './Tile'
 import MQTT from '../../../lib/MQTT'
+import Form from 'react-bootstrap/lib/Form'
 
 export default class MacroTile extends React.Component {
     constructor(props) {
@@ -22,14 +23,16 @@ export default class MacroTile extends React.Component {
         console.log('render', this.state)
         if (Config.screenSize === 'small') {
             return (
+                <Tile style={{textAlign: 'center', height: 70}}>
                     <MQTTButton
                         topic={this.topic}
                         value={this.name}
-                        buttonStyle={{width: '80%', height: 50}}
+                        buttonStyle={{width: '80%', height: 50, margin: 'auto'}}
                         bsStyle="primary"
                     >
                         {this.label}
                     </MQTTButton>
+                </Tile>
             )
         }
         return (
@@ -37,7 +40,10 @@ export default class MacroTile extends React.Component {
                 backgroundColor={this.state.backgroundColor}
                 onClick={this.onClick}
             >
-                <div>{this.config.label}</div>
+                <Form style={{marginTop: 10, textAlign: 'center'}}>
+                    <div style={{fontSize: 20}}>{this.config.label}</div>
+                    <div style={{fontSize: 10}}>MACRO</div>
+                </Form>
             </Tile>
         )
     }

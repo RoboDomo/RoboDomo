@@ -4,7 +4,7 @@ import MQTT from '../../../lib/MQTT'
 
 import React from 'react'
 import Form from 'react-bootstrap/lib/Form'
-
+import DisplayField from '../form/DisplayField'
 import Thermostat from 'react-nest-thermostat'
 
 import Tile from "./Tile";
@@ -37,6 +37,10 @@ export default class ThermostatTile extends React.Component {
                 <Tile
                     onClick="thermostat"
                 >
+                    <div>
+                        <span style={{fontWeight: 'bold', marginRight: 10, marginBottom: 4}}>Ambient:</span>
+                        {thermostat.ambient_temperature_f}&deg; F
+                    </div>
                     <Thermostat
                         style={{textAlign: 'center '}}
                         width="80px" height="80px"
@@ -62,6 +66,10 @@ export default class ThermostatTile extends React.Component {
                 <div
                     style={{textAlign: 'center', marginTop: 20}}
                 >
+                    <div>
+                        <span style={{fontWeight: 'bold', marginRight: 10, marginBottom: 4}}>Ambient:</span>
+                        {thermostat.ambient_temperature_f}&deg; F
+                    </div>
                     <Thermostat
                         style={{textAlign: 'center '}}
                         width="160px" height="160px"
@@ -71,7 +79,7 @@ export default class ThermostatTile extends React.Component {
                         hvacMode={thermostat.hvac_state}
                         leaf={thermostat.has_leaf}
                     />
-                    <Form horizontal style={{marginTop: 20}}>
+                    <Form horizontal style={{marginTop: 10}}>
                         <NumberInput
                             value={thermostat.target_temperature_f}
                             onValueChange={this.setTargetTemperature}
@@ -83,7 +91,7 @@ export default class ThermostatTile extends React.Component {
     }
 
     onStateChange(topic, newState) {
-        const key = topic.substr(this.status_topic_length),
+        const key      = topic.substr(this.status_topic_length),
               newValue = {}
 
         newValue[key] = newState

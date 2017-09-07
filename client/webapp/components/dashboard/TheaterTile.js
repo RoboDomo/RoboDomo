@@ -17,12 +17,16 @@ export default class TheaterTile extends React.Component {
         super(props)
         const config = props.config
 
-        this.tv                = config.tv
-        this.tv_status_topic   = `${Config.mqtt.lgtv}/${this.tv}/status/`
-        this.tivo              = config.tivo
-        this.tivo_status_topic = `${Config.mqtt.tivo}/${this.tivo}/status/`
+        this.tv                 = config.tv
+        this.tv_status_topic    = `${Config.mqtt.lgtv}/${this.tv}/status/`
+        this.tivo               = config.tivo
+        this.tivo_status_topic  = `${Config.mqtt.tivo}/${this.tivo}/status/`
+        this.denon              = config.denon
+        this.denon_status_topic = `${Config.mqtt.denon}/${this.denon}/status`
+        this.denon_set_topic    = `${Config.mqtt.denon}/${this.denon}/set`
+
         // find tivo in Config and get the guide id
-        this.guide             = null
+        this.guide = null
         Config.tivo.boxes.forEach((box) => {
             if (box.device === this.tivo) {
                 if (this.guide) {
@@ -88,23 +92,24 @@ export default class TheaterTile extends React.Component {
                         <div>
                             <Image style={{width: 32, height: 'auto', marginRight: 10}} src={info.logo.URL}/>
                             <DenonButton
-                                device={denon}
+                                topic={this.denon_set_topic}
                                 bsStyle={this.state.denon.mute === 'ON' ? 'danger' : 'default'}
-                                command={this.state.denon.mute === 'ON' ? 'MUOFF' : 'MUON'}
+                                value={this.state.denon.mute === 'ON' ? 'MUOFF' : 'MUON'}
                                 buttonStyle={buttonStyle}
                             >
                                 <Glyphicon glyph="volume-off"/>
                             </DenonButton>
                             <DenonButton
-                                device={denon}
-                                command="MVDOWN"
+                                topic={this.denon_set_topic}
+                                value="MVDOWN"
                                 buttonStyle={buttonStyle}
                             >
                                 <Glyphicon glyph="volume-down"/>
                             </DenonButton>
                             <DenonButton
-                                device={denon}
-                                command="MVUP"
+                                DenonButtondevice={denon}
+                                topic={this.denon_set_topic}
+                                value="MVUP"
                                 buttonStyle={buttonStyle}
                             >
                                 <Glyphicon glyph="volume-up"/>
@@ -140,23 +145,24 @@ export default class TheaterTile extends React.Component {
                         <div>{tivo.channel}</div>
                         <div>
                             <DenonButton
-                                device={denon}
+                                topic={this.denon_set_topic}
                                 bsStyle={this.state.denon.mute === 'ON' ? 'danger' : 'default'}
-                                command={this.state.denon.mute === 'ON' ? 'MUOFF' : 'MUON'}
+                                value={this.state.denon.mute === 'ON' ? 'MUOFF' : 'MUON'}
                                 buttonStyle={buttonStyle}
                             >
                                 <Glyphicon glyph="volume-off"/>
                             </DenonButton>
                             <DenonButton
-                                device={denon}
-                                command="MVDOWN"
+                                topic={this.denon_set_topic}
+                                value="MVDOWN"
                                 buttonStyle={buttonStyle}
                             >
                                 <Glyphicon glyph="volume-down"/>
                             </DenonButton>
                             <DenonButton
-                                device={denon}
-                                command="MVUP"
+                                DenonButtondevice={denon}
+                                topic={this.denon_set_topic}
+                                value="MVUP"
                                 buttonStyle={buttonStyle}
                             >
                                 <Glyphicon glyph="volume-up"/>
