@@ -1,6 +1,7 @@
 // Client configuration settings
 
-import DashboardScreen from './webapp/screens/DashboadScreen'
+import DashboardScreen from './webapp/screens/DashboardScreen'
+import TheaterScreen from './webapp/screens/TheaterScreen'
 import ThingsScreen from './webapp/screens/ThingsScreen'
 import ThermostatScreen from './webapp/screens/ThermostatScreen'
 import AutelisScreen from './webapp/screens/AutelisScreen'
@@ -86,6 +87,7 @@ export default {
   },
   routes: {
     dashboard:   {text: 'Dashboard', screen: DashboardScreen},
+    Theater:     { text: 'Theater', screen: TheaterScreen },
     things:      {text: 'SmartThings', screen: ThingsScreen},
     thermostat:  {text: 'Thermostat', screen: ThermostatScreen},
     poolcontrol: {text: 'Pool Control', screen: AutelisScreen},
@@ -157,6 +159,29 @@ export default {
       }
     ],
   },
+  rooms: [
+    {
+      name:  'Theater',
+      items: [
+        { type: 'harmony', name: 'harmony-hub'},
+        { type: 'lgtv', name: 'olede6p' },
+        { type: 'tivo', name: 'tivo-bolt-3tb' },
+        { type: 'denon', name: 'denon-s910w' },
+        { type: 'roku', name: '' },
+        { type: 'appletv', name: '' },
+        { type: 'dvd', name: '' },
+        { type: 'xboxones', name: '', },
+        { type: 'fan', name: 'smartthings', },
+        { type: 'light', name: 'smartthings', },
+        { 
+          type:    'macros',
+          buttons: [
+            'TV Mood'
+          ] 
+        }
+      ]
+    }
+  ],
   weather: {
     locations: [
       {name: 'Palm Desert CA', device: '92211'},
