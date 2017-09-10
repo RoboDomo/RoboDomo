@@ -20,6 +20,7 @@
   "dependencies": {
     "autelis-microservice": "github:RoboDomo/autelis-microservice",
     "bootstrap3": "^3.3.5",
+    "bootswatch": "^3.3.7",
     "bowser": "^1.7.1",
     "bravia": "^1.2.0",
     "chalk": "^2.1.0",
