@@ -86,15 +86,15 @@ export default {
   },
   routes: {
     dashboard:   {text: 'Dashboard', screen: DashboardScreen},
-    things:      {text: 'SmartThings', screen: ThingsScreen},
-    thermostat:  {text: 'Thermostat', screen: ThermostatScreen},
+    harmony:     {text: 'Harmony Hubs', screen: HarmonyScreen},
     poolcontrol: {text: 'Pool Control', screen: AutelisScreen},
     weather:     {text: 'Weather', screen: WeatherScreen},
+    bravia:      {text: 'Sony TV', screen: BraviaScreen},
+    things:      {text: 'SmartThings', screen: ThingsScreen},
+    thermostat:  {text: 'Thermostat', screen: ThermostatScreen},
     tivo:        {text: 'TiVo', screen: TiVoScreen},
     lgtv:        {text: 'LG TV', screen: LGTVScreen},
-    bravia:      {text: 'Sony TV', screen: BraviaScreen},
     denon:       {text: 'Denon AVR', screen: DenonScreen},
-    harmony:     {text: 'Harmony Hubs', screen: HarmonyScreen},
     notFound:    {text: 'Not Found', screen: NotFoundScreen},
   },
   dashboards: {
@@ -243,7 +243,19 @@ export default {
   },
   harmony: {
     hubs: [
-      {name: 'Family Room', device: 'harmony-hub'},
+      {
+        name:    'Family Room', 
+        device:  'harmony-hub', 
+        denon:   'denon-s910w',
+        buttons: [
+          { type: 'thermostat', text: 'Nest', name: 'Falsetto/Hallway Thermostat' },
+          { type: 'fan', text: 'Ceiling Fan', name: 'Ceiling Fan' },
+          { type: 'dimmer', text: 'Light', name: 'Ceiling Fan Light' },
+          { type: 'mqtt', text: 'TV Break', topic: 'macros/run', message: 'TV Break' },
+          { type: 'mqtt', text: 'TV Resume', topic: 'macros/run', message: 'TV Resume' },
+          { type: 'mqtt', text: 'Good Night', topic: 'macros/run', message: 'Good Night' },
+        ]
+      },
       {name: 'Master Bedroom', device: 'harmony-hub2'},
     ]
   },

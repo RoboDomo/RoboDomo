@@ -54,7 +54,6 @@ export default class AudioControl extends Component {
     }
 
     if (Config.screenSize === 'small') {
-
       return (
         <div style={{marginTop: 10, textAlign: 'center'}}>
           <div
@@ -97,7 +96,7 @@ export default class AudioControl extends Component {
     }
 
     return (
-      <div style={{marginTop: 60}}>
+      <div> 
         <h5 style={{whiteSpace: 'nowrap'}}>Master Volume</h5>
         <ButtonGroup vertical>
           {this.renderGlyphButton(

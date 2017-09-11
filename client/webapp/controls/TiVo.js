@@ -310,10 +310,12 @@ export default class TiVo extends Component {
     }
     return (
       <Row>
-        <Col sm={2}>
-          {this.denon && <AudioControls
-            device={this.denon}
-          />}
+        <Col sm={2} style={{marginTop: 10}}>
+          {
+            this.denon && <AudioControls
+              device={this.denon}
+            />
+          }
         </Col>
         <Col sm={8}>
           {this.renderTivoLocation()}
@@ -324,7 +326,7 @@ export default class TiVo extends Component {
           {this.renderPlaybackControls()}
         </Col>
         <Col sm={2}>
-          <div style={{marginTop: 60, textAlign: 'center'}}>
+          <div style={{marginTop: 10, textAlign: 'center'}}>
             {this.renderFavorites()}
           </div>
           <h5>History</h5>

@@ -50,8 +50,8 @@ export default class PoolTile extends React.Component {
       }
 
       const on              = state.pump.toLowerCase() === 'on',
-            backgroundColor = on ? 'green' : 'white',
-            color           = on ? 'white' : 'black'
+            backgroundColor = on ? 'green' : undefined,
+            color           = on ? 'white' : undefined
 
       function renderPool() {
         if (on) {

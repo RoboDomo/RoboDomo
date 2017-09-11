@@ -7,14 +7,6 @@ import MQTT from '../../../lib/MQTT'
 
 import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 
-const styles = {
-  img: {
-    verticalAlign: 'middle',
-    width:         96,
-    height:        96,
-  }
-}
-
 export default class WeatherTile extends React.Component {
   constructor(props) {
     super(props)
