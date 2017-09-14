@@ -45,10 +45,12 @@
     "react-bootstrap-slider": "^2.0.0",
     "react-bootstrap-toggle": "^2.0.8",
     "react-dom": "^15.6.1",
+    "react-icons": "^2.2.5",
     "react-nest-thermostat": "^1.0.8",
     "react-numeric-input": "^2.1.0",
     "react-tap-event-plugin": "^2.0.1",
     "react-toolbox": "^2.0.0-beta.12",
+    "screenfull": "^3.3.1",
     "superagent": "^3.5.2",
     "wake_on_lan": "0.0.4",
     "xml2js": "^0.4.18"

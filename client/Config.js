@@ -28,6 +28,9 @@ const screenSize = function () {
   if (bowser.ipad) {
     return 'normal'
   }
+  else if (window.innerWidth <= 601) {
+    return 'small'
+  }
   return bowser.mobile ? 'small' : 'normal'
 }()
 
@@ -63,7 +66,7 @@ export default {
     labelCol:     screenSize === 'small' ? 3 : 4,
     fieldCol:     screenSize === 'small' ? 9 : 8,
     // style for remote buttons, denon buttons, etc.
-    buttonStyle:  screenSize === 'small' ? {
+    buttonStyle:  (screenSize === 'small'  && window.innerWidth < 600 && window.innerHeight < 600)  ? {
       width:  56,
       height: 30
     } : {
@@ -75,7 +78,7 @@ export default {
       width:  100,
       height: 40
     },
-    miniButtonStyle: screenSize === 'small' ? {
+    miniButtonStyle: (screenSize === 'small'  && window.innerWidth < 600 && window.innerHeight < 600)  ? {
       width:  30,
       height: 30
     } : {
@@ -86,15 +89,15 @@ export default {
   },
   routes: {
     dashboard:   {text: 'Dashboard', screen: DashboardScreen},
-    things:      {text: 'SmartThings', screen: ThingsScreen},
-    thermostat:  {text: 'Thermostat', screen: ThermostatScreen},
+    harmony:     {text: 'Harmony Hubs', screen: HarmonyScreen},
     poolcontrol: {text: 'Pool Control', screen: AutelisScreen},
     weather:     {text: 'Weather', screen: WeatherScreen},
+    bravia:      {text: 'Sony TV', screen: BraviaScreen},
+    things:      {text: 'SmartThings', screen: ThingsScreen},
+    thermostat:  {text: 'Thermostat', screen: ThermostatScreen},
     tivo:        {text: 'TiVo', screen: TiVoScreen},
     lgtv:        {text: 'LG TV', screen: LGTVScreen},
-    bravia:      {text: 'Sony TV', screen: BraviaScreen},
     denon:       {text: 'Denon AVR', screen: DenonScreen},
-    harmony:     {text: 'Harmony Hubs', screen: HarmonyScreen},
     notFound:    {text: 'Not Found', screen: NotFoundScreen},
   },
   dashboards: {
@@ -243,7 +246,19 @@ export default {
   },
   harmony: {
     hubs: [
-      {name: 'Family Room', device: 'harmony-hub'},
+      {
+        name:    'Family Room', 
+        device:  'harmony-hub', 
+        denon:   'denon-s910w',
+        buttons: [
+          { type: 'thermostat', text: 'Nest', name: 'Falsetto/Hallway Thermostat' },
+          { type: 'fan', text: 'Ceiling Fan', name: 'Ceiling Fan' },
+          { type: 'dimmer', text: 'Light', name: 'Ceiling Fan Light' },
+          { type: 'mqtt', text: 'TV Break', topic: 'macros/run', message: 'TV Break' },
+          { type: 'mqtt', text: 'TV Resume', topic: 'macros/run', message: 'TV Resume' },
+          { type: 'mqtt', text: 'Bedtime', topic: 'macros/run', message: 'Bedtime' },
+        ]
+      },
       {name: 'Master Bedroom', device: 'harmony-hub2'},
     ]
   },

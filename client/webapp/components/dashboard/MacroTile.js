@@ -5,6 +5,8 @@ import GlyphIcon from 'react-bootstrap/lib/Glyphicon'
 import Tile from './Tile'
 import MQTT from '../../../lib/MQTT'
 
+import SwitchIcon from 'react-icons/lib/ti/flash'
+
 export default class MacroTile extends React.Component {
   constructor(props) {
     super(props)
@@ -24,9 +26,10 @@ export default class MacroTile extends React.Component {
         onClick={this.onClick}
       >
         <div style={{flexDirection: 'column'}}>
-          <div style={{fontSize: 30, textAlign: 'center', marginBottom: 10}}>
-            <GlyphIcon glyph="hand-right"/>
+          <div style={{fontSize: 24, textAlign: 'center', marginBottom: 10}}>
+            <SwitchIcon/>
           </div>
+          <div style={{textAlign: 'center'}}>{'Macro'}</div>
           <div>{this.config.label}</div>
         </div>
       </Tile>

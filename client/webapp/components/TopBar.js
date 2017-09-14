@@ -10,34 +10,6 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import NavDropdown from 'react-bootstrap/lib/NavDropdown'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 
-class Clock extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      time: new Date().toLocaleString()
-    }
-  }
-
-  render() {
-    return (
-      <span>{this.state.time}</span>
-    )
-  }
-
-  componentDidMount() {
-    this.state.timer = setInterval(() => {
-      this.setState({time: new Date().toLocaleString()})
-    })
-  }
-
-  componentWillUnmount() {
-    if (this.state.timer) {
-      clearInterval(this.state.timer)
-      this.state.timer = null
-    }
-  }
-}
-
 const styles = {
   topBar: {
     // position: 'fixed',
@@ -84,13 +56,14 @@ class TopBar extends React.Component {
                       eventKey={path}
                       key={path}
                       href="#"
-                      data-route={`#${path}`}
+                      data-route={'#' + path}
                       onClick={this.setRoute}
                     >
                       {route.text}
                     </MenuItem>
                   )
                 })}
+                <div>{screen.width+ 'x' + screen.height}</div>
                 <MenuItem
                   eventKey={'reset'}
                   key={'reset'}

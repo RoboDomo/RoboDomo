@@ -34,6 +34,8 @@ export default class Harmony extends Component {
 
     const hub         = props.hub
     this.hub          = hub
+    this.denon        = hub.denon
+    this.buttons      = hub.buttons
     this.device       = hub.device
     this.favorites    = hub.favorites
     this.state        = null
@@ -46,6 +48,7 @@ export default class Harmony extends Component {
     this.onStateChange    = ::this.onStateChange
     this.chooseActivity   = ::this.chooseActivity
     this.chooseDevice     = ::this.chooseDevice
+    this.renderPlainButton= ::this.renderPlainButton
     this.renderButton     = ::this.renderButton
     this.renderMiniButton = ::this.renderMiniButton
     this.fixit            = ::this.fixit
@@ -83,6 +86,22 @@ export default class Harmony extends Component {
   isActivityStarting() {
     const state = this.state
     return Boolean(state && state.startingActivity)
+  }
+
+  renderPlainButton(command, text, bsStyle, buttonStyle) {
+    if (!text) {
+      text = command
+    }
+    return (
+      <RemoteButton
+        topic={this.set_topic + 'command'}
+        value={command}
+        bsStyle={null}
+        buttonStyle={null}
+      >
+        {text}
+      </RemoteButton>
+    )
   }
 
   renderButton(command, text, bsStyle, buttonStyle) {
@@ -232,7 +251,6 @@ export default class Harmony extends Component {
           })}
         </NavDropdown>
       )
-
     }
   }
 
@@ -322,6 +340,9 @@ export default class Harmony extends Component {
     return (
       <RemoteControl
         topic={this.set_topic}
+        denon={this.denon}
+        buttons={this.buttons}
+        renderPlainButton={this.renderPlainButton}
         renderButton={this.renderButton}
         renderMiniButton={this.renderMiniButton}
         controlGroup={activity.controlGroup}
@@ -360,7 +381,7 @@ export default class Harmony extends Component {
             <NavItem
               onClick={this.fixit}
             >
-                            Fixit
+              {'Fixit'}
             </NavItem>
             <NavItem >
               <Button
