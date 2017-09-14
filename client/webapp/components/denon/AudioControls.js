@@ -12,6 +12,8 @@ export default class AudioControl extends Component {
   constructor(props) {
     super(props)
 
+    this.screenSize          = window.innerWidth === 600 ? 'normal' : Config.screenSize 
+
     this.device              = props.device
     this.state               = {showVolume: false}
     this.status_topic        = Config.mqtt.denon + '/' + this.device + '/status/'
@@ -22,6 +24,7 @@ export default class AudioControl extends Component {
   }
 
   renderGlyphButton(command, glyph, bsStyle) {
+    console.log('command', command, 'topic', this.set_topic)
     return (
       <DenonButton
         bsStyle={bsStyle}
@@ -53,7 +56,7 @@ export default class AudioControl extends Component {
       return null
     }
 
-    if (Config.screenSize === 'small') {
+    if (this.screenSize === 'small') {
       return (
         <div style={{marginTop: 10, textAlign: 'center'}}>
           <div

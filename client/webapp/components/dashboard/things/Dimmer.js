@@ -5,6 +5,8 @@ import Label from 'react-bootstrap/lib/Label'
 
 import MQTT from '../../../../lib/MQTT'
 
+import SwitchIcon from 'react-icons/lib/ti/adjust-brightness'
+
 export default class Dimmer extends React.Component {
   constructor(props) {
     super(props)
@@ -55,6 +57,7 @@ export default class Dimmer extends React.Component {
           style={{textAlign: 'center'}}
           onClick={this.onClick}
         >
+          <SwitchIcon size={24} style={{marginBottom: 10}}/>
           <div>{props.label}</div>
           <div style={{fontSize: 30}}>Off</div>
         </div>
@@ -65,6 +68,7 @@ export default class Dimmer extends React.Component {
         style={{textAlign: 'center'}}
         onClick={this.onClick}
       >
+        <SwitchIcon size={24} style={{marginBottom: 10}}/>
         <div>{props.label}</div>
         <div style={{fontSize: 30}}>On</div>
       </div>

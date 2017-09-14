@@ -1,9 +1,10 @@
 import Config from '../../../../Config'
+import MQTT from '../../../../lib/MQTT'
 
 import React from 'react'
 import Label from 'react-bootstrap/lib/Label'
 
-import MQTT from '../../../../lib/MQTT'
+import FanIcon from 'react-icons/lib/ti/waves'
 
 export default class Fan extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ export default class Fan extends React.Component {
       <h3
         onClick={this.onClick}
       >
+        <FanIcon/>
         {props.label}
         <Label
           style={{marginLeft: 10}}
@@ -62,9 +64,6 @@ export default class Fan extends React.Component {
     if (!state || !state.switch || !state.level) {
       return null
     }
-    //if (Config.screenSize === 'small') {
-    //  return this.renderSmall()
-    //}
 
     let value = 'Off'
     if (state.switch === 'on') {
@@ -84,6 +83,7 @@ export default class Fan extends React.Component {
         style={{textAlign: 'center'}}
         onClick={this.onClick}
       >
+        <FanIcon size={24} style={{marginBottom: 10}}/>
         <div>{props.label}</div>
         <div style={{fontSize: 30}}>{value}</div>
       </div>

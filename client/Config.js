@@ -28,6 +28,9 @@ const screenSize = function () {
   if (bowser.ipad) {
     return 'normal'
   }
+  else if (window.innerWidth <= 601) {
+    return 'small'
+  }
   return bowser.mobile ? 'small' : 'normal'
 }()
 
@@ -63,7 +66,7 @@ export default {
     labelCol:     screenSize === 'small' ? 3 : 4,
     fieldCol:     screenSize === 'small' ? 9 : 8,
     // style for remote buttons, denon buttons, etc.
-    buttonStyle:  screenSize === 'small' ? {
+    buttonStyle:  (screenSize === 'small'  && window.innerWidth < 600 && window.innerHeight < 600)  ? {
       width:  56,
       height: 30
     } : {
@@ -75,7 +78,7 @@ export default {
       width:  100,
       height: 40
     },
-    miniButtonStyle: screenSize === 'small' ? {
+    miniButtonStyle: (screenSize === 'small'  && window.innerWidth < 600 && window.innerHeight < 600)  ? {
       width:  30,
       height: 30
     } : {
@@ -253,7 +256,7 @@ export default {
           { type: 'dimmer', text: 'Light', name: 'Ceiling Fan Light' },
           { type: 'mqtt', text: 'TV Break', topic: 'macros/run', message: 'TV Break' },
           { type: 'mqtt', text: 'TV Resume', topic: 'macros/run', message: 'TV Resume' },
-          { type: 'mqtt', text: 'Good Night', topic: 'macros/run', message: 'Good Night' },
+          { type: 'mqtt', text: 'Bedtime', topic: 'macros/run', message: 'Bedtime' },
         ]
       },
       {name: 'Master Bedroom', device: 'harmony-hub2'},

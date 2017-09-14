@@ -28,13 +28,14 @@ const SPACE = 10
 export default class RemoteControl extends Component {
   constructor(props) {
     super(props)
-    this.topic            = this.props.topic
-    this.denon            = this.props.denon
-    this.buttons          = this.props.buttons
-    this.renderPlainButton= props.renderPlainButton
-    this.controlGroup     = props.controlGroup
-    this.renderButton     = props.renderButton
-    this.renderMiniButton = props.renderMiniButton
+    this.topic             = this.props.topic
+    this.denon             = this.props.denon
+    this.buttons           = this.props.buttons
+    this.renderPlainButton = props.renderPlainButton
+    this.controlGroup      = props.controlGroup
+    this.renderButton      = props.renderButton
+    this.renderMiniButton  = props.renderMiniButton
+    this.screenSize        = window.innerWidth === 600 ? 'normal' : Config.screenSize 
   }
 
   /**
@@ -105,14 +106,16 @@ export default class RemoteControl extends Component {
 
     return (
       <div style={{textAlign: 'center'}}>
-        <ButtonGroup>
-          {renderBack()}
-          {renderLiveTV()}
-          {renderSettings()}
-          {renderTiVo()}
-          {renderGuide()}
-          {renderInfo()}
-        </ButtonGroup>
+        <div style={{marginLeft: 'auto', marginRight: 'auto'}}>
+          <ButtonGroup>
+            {renderBack()}
+            {renderLiveTV()}
+            {renderSettings()}
+            {renderTiVo()}
+            {renderGuide()}
+            {renderInfo()}
+          </ButtonGroup>
+        </div>
       </div>
     )
   }
@@ -371,7 +374,7 @@ export default class RemoteControl extends Component {
       return null
     }
 
-    if (Config.screenSize === 'small') {
+    if (this.screenSize === 'small') {
       return (
         <div style={{textAlign: 'center'}}>
           <ButtonGroup>
@@ -508,7 +511,7 @@ export default class RemoteControl extends Component {
   }
 
   render() {
-    if (Config.screenSize === 'small') {
+    if (this.screenSize === 'small') {
       return (
         <div style={{marginBottom: 30}}>
           {this.renderPower()}
@@ -527,10 +530,10 @@ export default class RemoteControl extends Component {
     }
     return (
       <Row> 
-        <Col sm={2}>
+        <Col sm={2} xs={2} style={{paddingLeft: 5, paddingRight: 0}}>
           {this.renderAudioControls()}
         </Col>
-        <Col sm={8}>
+        <Col sm={8} xs={8} style={{padding: 0}}>
           {this.renderNavigation()}
           {this.renderInputs()}
           {this.renderThumbsUpThumbsDown()}
@@ -540,7 +543,7 @@ export default class RemoteControl extends Component {
           {this.renderPlaybackControls()}
           {this.renderDetail()}
         </Col>
-        <Col sm={2}>
+        <Col sm={2} xs={2} style={{paddingLeft: 0, paddingRight: 10}}>
           {this.renderPower()}
           {this.renderDvd()}
           {this.renderButtons()}
