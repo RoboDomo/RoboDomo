@@ -6,6 +6,7 @@ import MQTT from '../../../lib/MQTT'
 
 const topics = [
   'spaHeat',
+  'spaTemp',
   'spa',
   'jet',
   'blower',
@@ -39,19 +40,18 @@ export default class SpaTile extends React.Component {
       }
 
       const tileSize = Config.screenSize === 'small' ? 1 : 2
-      const me              = this,
-            state           = this.state,
+      const state           = this.state,
             on              = this.isOn('spa')
                       || this.isOn('spaHeat')
                       || this.isOn('jet')
                       || this.isOn('blower')
                       || this.isOn('spaLight'),
-            backgroundColor = on ? 'red' : 'white',
-            color           = on ? 'white' : 'black'
+            backgroundColor = on ? 'red' : undefined,
+            color           = on ? 'white' : undefined
 
       function renderControl(ndx, text, big) {
         const thing = state[ndx]
-        if (thing && thing.toLowerCase() !== 'on') {
+        if (thing && state.spa !== 'on' ||  thing.toLowerCase() === 'off' ) {
           return null
         }
         if (big) {
@@ -99,6 +99,8 @@ export default class SpaTile extends React.Component {
           width={tileSize}
           height={1}
           onClick="poolcontrol"
+          backgroundColor={backgroundColor}
+          color={color}
         >
           <div style={{textAlign: 'center'}}>
             {renderSpa(this.state)}
