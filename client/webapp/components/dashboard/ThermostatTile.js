@@ -74,7 +74,7 @@ export default class ThermostatTile extends React.Component {
           <div style={{marginBottom: 8, fontSize: 18, fontWeight: 'bold'}}>{'Inside: ' + ambient_temperature}&deg; F</div>
           <Thermostat
             style={{textAlign: 'center '}}
-            width="160px" height="160px"
+            width="150px" height="150px"
             away={Boolean(thermostat.away !== 'home')}
             ambientTemperature={thermostat.ambient_temperature_f}
             targetTemperature={thermostat.target_temperature_f}

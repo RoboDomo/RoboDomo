@@ -157,7 +157,47 @@ export default {
           },
           {type: 'macro', name: 'Good Night', label: 'Good Night'},
         ]
-      }
+      },
+      {
+        title: 'Office',
+        key:   'office',
+        tiles: [
+          {type: 'clock'},
+          {type: 'thermostat', device: 'Falsetto/Hallway Thermostat'},
+          {type: 'weather'},
+          {
+            type:     'smartthings',
+            title:    'Office',
+            controls: [
+              {device: 'Office Light', type: 'dimmer'},
+              {device: 'Office Fan', type: 'fan'},
+              {device: 'Back Room Light', type: 'dimmer'},
+              {device: 'Back Room Fan', type: 'fan'},
+              {device: 'Back Room Switch', type: 'switch'},
+              {device: 'Kitchen Lights', type: 'dimmer'},
+              {device: 'Porch Light', type: 'switch'},
+              {device: 'Outside Light', type: 'switch'},
+              {device: 'Bathroom Light', type: 'dimmer'},
+            ]
+          },
+          {type: 'macro', name: 'Theater On', label: 'Theater On'},
+          {type: 'macro', name: 'Theater Off', label: 'Theater Off'},
+        ]
+      },
+      {
+        title: 'Macros',
+        key:   'macros',
+        tiles: [
+          {type: 'macro', name: 'Bedroom On', label: 'Bedroom On'},
+          {type: 'macro', name: 'Bedroom Off', label: 'Bedroom Off'},
+          {type: 'macro', name: 'Office On', label: 'Office On'},
+          {type: 'macro', name: 'Office Off', label: 'Office Off'},
+          {type: 'macro', name: 'Warm Spa', label: 'Warm Spa'},
+          {type: 'macro', name: 'Enter Spa', label: 'Enter Spa'},
+          {type: 'macro', name: 'Exit Spa', label: 'Exit Spa'},
+          {type: 'macro', name: 'Spa Off', label: 'Spa Off'},
+        ]
+      },
     ],
   },
   weather: {
@@ -178,7 +218,13 @@ export default {
     things: [
       {name: 'Ceiling Fan Light', type: 'dimmer', rooms: ['Theater']},
       {name: 'Ceiling Fan', type: 'fan', rooms: ['Theater']},
-      {name: 'Kitchen Lights', type: 'dimmer', rooms: ['Kitchen', 'Theater']},
+      {name: 'Office Light', type: 'dimmer', rooms: ['Theater', 'Office', 'Back Room']},
+      {name: 'Office Fan', type: 'fan', rooms: ['Theater', 'Office', 'Back Room']},
+      {name: 'Back Room Light', type: 'dimmer', rooms: ['Theater', 'Office', 'Back Room']},
+      {name: 'Back Room Fan', type: 'fan', rooms: ['Theater', 'Office', 'Back Room']},
+      {name: 'Back Room Switch', type: 'switch', rooms: ['Theater', 'Office', 'Back Room']},
+      {name: 'Entryway Lights', type: 'switch', rooms: ['Theater', 'Office', 'Back Room', 'Bedroom']},
+      {name: 'Kitchen Lights', type: 'dimmer', rooms: ['Kitchen', 'Theater', 'Bedroom']},
       {name: 'Bathroom Light', type: 'dimmer', rooms: ['Bathroom', 'Bedroom']},
       {name: 'Bathroom Sensor', type: 'motion', rooms: ['Bathroom', 'Bedroom']},
       {name: 'Bedroom Fan', type: 'fan', rooms: ['Bedroom']},
@@ -209,7 +255,7 @@ export default {
       // device may optionally have a denon receiver device and a guide
       // if guide not provided, the global one for tivo (above) is used
       {device: 'tivo-bolt-3tb', name: 'Theater TiVo', denon: 'denon-s910w', guide: 'CA68543'},
-      {device: 'tivo-bolt', name: 'TiVo Bolt', guide: 'CA68543'},
+      {device: 'tivo-bolt', name: 'TiVo Bolt', denon: 'denon-x2100w', guide: 'CA68543'},
       {device: 'tivo-office2', name: 'Mini Back Office', guide: 'CA68543'},
       {device: 'tivo-office', name: 'Mini Office', guide: 'CA68543'},
       {device: 'tivo-guest', name: 'Mini Guest Room', guide: 'CA68543'},
@@ -231,6 +277,7 @@ export default {
   denon: {
     receivers: [
       {name: 'Family Room Receiver', device: 'denon-s910w'},
+      {name: 'Master Bed Room Receiver', device: 'denon-x2100w'},
     ],
   },
   lgtv: {
@@ -259,7 +306,7 @@ export default {
           { type: 'mqtt', text: 'Bedtime', topic: 'macros/run', message: 'Bedtime' },
         ]
       },
-      {name: 'Master Bedroom', device: 'harmony-hub2'},
+      //      {name: 'Master Bedroom', device: 'harmony-hub2'},
     ]
   },
 }

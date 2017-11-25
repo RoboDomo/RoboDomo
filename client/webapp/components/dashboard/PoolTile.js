@@ -7,7 +7,11 @@ import MQTT from '../../../lib/MQTT'
 const topics = [
   'pump',
   'cleaner',
-  'poolTemp'
+  'poolTemp',
+  'poolHeat',
+  'poolSetpoint',
+  'solarHeat',
+  'solarTemp'
 ]
 
 export default class PoolTile extends React.Component {
@@ -19,6 +23,7 @@ export default class PoolTile extends React.Component {
     this.status_topic        = Config.mqtt.autelis + '/status/'
     this.status_topic_length = this.status_topic.length
     this.onStateChange       = this.onStateChange.bind(this)
+    console.log('deviceMap', this.deviceMap)
   }
 
   render() {
@@ -31,7 +36,9 @@ export default class PoolTile extends React.Component {
             state = this.state
 
       function renderControl(ndx, text, big) {
-        if (!state[ndx] || state[ndx].toLowerCase() !== 'on') {
+        const thingState = (state[ndx] || 'off').toLowerCase()
+
+        if (thingState === 'off') {
           return null
         }
         if (big) {
@@ -50,10 +57,11 @@ export default class PoolTile extends React.Component {
       }
 
       const on              = state.pump.toLowerCase() === 'on',
-            backgroundColor = on ? 'green' : undefined,
+            backgroundColor = on ? (state.poolHeat === 'enabled' ? 'red': 'green') : undefined,
             color           = on ? 'white' : undefined
 
       function renderPool() {
+        console.log('state', state)
         if (on) {
           return (
             <div>
@@ -61,6 +69,8 @@ export default class PoolTile extends React.Component {
               {renderControl('pump', 'Filter On')}
               {renderControl('cleaner', 'Cleaner On')}
               {renderControl('waterfall', 'Waterfall On')}
+              {renderControl('poolHeat', 'Pool Heat ' + state.poolSetpoint)}
+              {renderControl('solarHeat', 'Solar Heat ' + (state.solarHeat === 'on' ? state.solarTemp : 'off'))}
             </div>
           )
         }

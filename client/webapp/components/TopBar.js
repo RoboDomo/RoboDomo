@@ -7,8 +7,7 @@ import Nav from 'react-bootstrap/lib/Nav'
 import NavItem from 'react-bootstrap/lib/NavItem'
 import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 
-import NavDropdown from 'react-bootstrap/lib/NavDropdown'
-import MenuItem from 'react-bootstrap/lib/MenuItem'
+import NavMenu from './NavMenu'
 
 const styles = {
   topBar: {
@@ -19,135 +18,84 @@ const styles = {
   }
 }
 
+document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen
+
+function isFullscreen() {
+  return document.webkitIsFullScreen || document.mozIsFullScreen  || Document.fullscreen
+}
+
+function toggleFullscreen(element) {
+  if (!isFullscreen()) {
+    if (element.requestFullscreen) {
+      element.requestFullscreen()
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen()
+    } else if (element.webkitRequestFullScreen) {
+      element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT)
+    }
+  }
+  else if (document.exitFullscreen) {
+    document.exitFullscreen()
+  }
+  else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen()
+  }
+  else if (document.mozExitFullscreen) {
+    document.mozExitFullscreen()
+  }
+}
+
 class TopBar extends React.Component {
+  state = { menu: false }
   constructor(props) {
     super(props)
+
+    this.handleMenuClick = ::this.handleMenuClick
+    this.handleToggleFullscreen = ::this.handleToggleFullscreen
   }
 
   render() {
-    //if (Config.screenSize === 'small') {
-    const routes = Config.routes
-
     return (
-      <Navbar inverse fixedTop collapseOnSelect style={styles.topBar}>
-        <Navbar.Header style={{width: '100%'}}>
-          <Navbar.Brand>
-            <a href="#dashboard">
+      <div>
+        <Navbar inverse fixedTop collapseOnSelect style={styles.topBar}>
+          <Navbar.Header style={{width: '100%'}}>
+            <Navbar.Brand
+              onClick={this.handleToggleFullscreen}
+            >
               <Glyphicon style={{marginRight: 8}} glyph="home"/>
               {Config.location}
-            </a>
-          </Navbar.Brand>
-          <div style={{float: 'right'}}>
-            <Nav pullRight style={{display: 'flex', justifyContent: 'flex-end'}}>
-              <NavDropdown
-                noCaret
-                style={{float: 'right', paddingRight: 20, zIndex: 1000}}
-                eventKey={1}
-                id="topbar-dropdown"
-                title={<Glyphicon glyph="menu-hamburger"/>}
-              >
-                {Object.keys(routes).map((path) => {
-                  const route = routes[path]
-                  if (path === 'notFound') {
-                    return null
-                  }
-                  return (
-                    <MenuItem
-                      eventKey={path}
-                      key={path}
-                      href="#"
-                      data-route={'#' + path}
-                      onClick={this.setRoute}
-                    >
-                      {route.text}
-                    </MenuItem>
-                  )
-                })}
-                <div>{screen.width+ 'x' + screen.height}</div>
-                <MenuItem
-                  eventKey={'reset'}
-                  key={'reset'}
-                  href="#"
-                  onClick={this.reload}
+              <Glyphicon style={{marginLeft: 8}} glyph={isFullscreen() ? 'resize-small' : 'resize-full'}/>
+            </Navbar.Brand>
+            <div style={{float: 'right'}}>
+              <Nav>
+                <NavItem eventKey={1}
+                  onClick={this.handleMenuClick}
                 >
-                  <Glyphicon glyph="refresh"/>
-                  {' Reset'}
-                </MenuItem>
-              </NavDropdown>
-            </Nav>
-          </div>
-        </Navbar.Header>
-      </Navbar>
-    )
-    return (
-      <Navbar inverse fixedTop collapseOnSelect style={styles.topBar}>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="#dashboard">
-              <Glyphicon style={{marginRight: 8}} glyph="home"/>
-              {Config.location}
-            </a>
-          </Navbar.Brand>
-          <Navbar.Toggle/>
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            {Object.keys(routes).map((path) => {
-              const route = routes[path]
-              if (path === 'notFound') {
-                return null
-              }
-              return (
-                <NavItem
-                  eventKey={path}
-                  key={path}
-                  href="#"
-                  data-route={`#${path}`}
-                  onClick={this.setRoute}
-                >
-                  {route.text}
+                  <Glyphicon glyph="menu-hamburger"/>
                 </NavItem>
-              )
-            })}
-            <NavItem href="#" onClick={this.reload}>
-              <Glyphicon glyph="refresh"/>
-            </NavItem>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+              </Nav>
+            </div>
+          </Navbar.Header>
+        </Navbar>
+        <NavMenu 
+          show={this.state.menu}
+          toggle={this.handleMenuClick}
+        />
+      </div>
     )
-    //}
-    //return (
-    //  <Navbar inverse fixedTop collapseOnSelect style={styles.topBar}>
-    //    <Navbar.Header>
-    //      <Navbar.Brand>
-    //        <a href="#dashboard">
-    //          <Glyphicon style={{marginRight: 8}} glyph="home"/>
-    //          {Config.location}
-    //        </a>
-    //      </Navbar.Brand>
-    //      <Navbar.Toggle/>
-    //    </Navbar.Header>
-    //    <Navbar.Collapse>
-    //      <Nav pullRight>
-    //        <NavItem>
-    //          <span>{window.innerWidth} x {window.innerHeight}</span>
-    //        </NavItem>
-    //        <NavItem href="#" onClick={this.reload}>
-    //          <Glyphicon glyph="refresh"/>
-    //        </NavItem>
-    //      </Nav>
-    //    </Navbar.Collapse>
-    //  </Navbar>
-    //)
   }
 
-  /**
-     * reload app
-     */
-  reload() {
-    localStorage.clear()
-    window.location.reload()
+  handleToggleFullscreen() {
+    if (Config.screenSize === 'small' && document.fullscreenEnabled) {
+      toggleFullscreen(document.documentElement)
+      setTimeout(() => {
+        this.forceUpdate()
+      }, 10)
+    }
+  }
+
+  handleMenuClick() {
+    this.setState({menu: !this.state.menu})
   }
 
   setRoute(e) {
