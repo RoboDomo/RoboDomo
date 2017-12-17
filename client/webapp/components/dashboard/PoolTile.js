@@ -70,7 +70,7 @@ export default class PoolTile extends React.Component {
               {renderControl('cleaner', 'Cleaner On')}
               {renderControl('waterfall', 'Waterfall On')}
               {renderControl('poolHeat', 'Pool Heat ' + state.poolSetpoint)}
-              {renderControl('solarHeat', 'Solar Heat ' + (state.solarHeat === 'on' ? state.solarTemp : 'off'))}
+              {renderControl('solarHeat', 'Solar Heat ' + (state.solarHeat === 'enabled' ? state.solarTemp : 'off'))}
             </div>
           )
         }

@@ -241,6 +241,7 @@ export default class Autelis extends React.Component {
   }
 
   setSpaSetpoint(temp) {
+    const state = this.state
     if (state && state.spaSetpoint !== temp) {
       this.control('spaSetpoint', temp)
     }

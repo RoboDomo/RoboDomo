@@ -80,7 +80,7 @@ export default class Fan extends React.Component {
     }
     return (
       <div
-        style={{textAlign: 'center'}}
+        style={{textAlign: 'center', color: state.switch == 'on' ? 'yellow' : undefined}}
         onClick={this.onClick}
       >
         <FanIcon size={24} style={{marginBottom: 10}}/>

@@ -65,7 +65,7 @@ export default class Dimmer extends React.Component {
     }
     return (
       <div
-        style={{textAlign: 'center'}}
+        style={{textAlign: 'center', color: 'yellow'}}
         onClick={this.onClick}
       >
         <SwitchIcon size={24} style={{marginBottom: 10}}/>

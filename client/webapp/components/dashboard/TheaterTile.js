@@ -36,6 +36,7 @@ export default class TheaterTile extends React.Component {
     this.denon = config.denon || null
     if (this.denon) {
       this.denon_status_topic = `${Config.mqtt.denon}/${this.denon}/status/`
+      this.denon_set_topic = this.denon_status_topic.replace('status', 'set') + 'command'
     }
 
     this.tvStateChange      = this.tvStateChange.bind(this)
@@ -56,6 +57,39 @@ export default class TheaterTile extends React.Component {
     )
   }
 
+  renderAudio() {
+    if (!this.denon_set_topic) {
+      return null
+    }
+    const buttonStyle = Config.ui.miniButtonStyle
+
+    return (
+      <div>
+        <DenonButton
+          bsStyle={this.state.denon['MU'] === 'ON' ? 'danger' : 'default'}
+          topic={this.denon_set_topic}
+          value={this.state.denon['MU'] === 'ON' ? 'MUOFF' : 'MUON'}
+          buttonStyle={buttonStyle}
+        >
+          <Glyphicon glyph="volume-off"/>
+        </DenonButton>
+        <DenonButton
+          topic={this.denon_set_topic}
+          value="MVDOWN"
+          buttonStyle={buttonStyle}
+        >
+          <Glyphicon glyph="volume-down"/>
+        </DenonButton>
+        <DenonButton
+          topic={this.denon_set_topic}
+          value="MVUP"
+          buttonStyle={buttonStyle}
+        >
+          <Glyphicon glyph="volume-up"/>
+        </DenonButton>
+      </div>
+    )
+  }
   render() {
     const state = this.state
 
@@ -138,30 +172,7 @@ export default class TheaterTile extends React.Component {
               />
             </div>
             <div>{tivo.channel}</div>
-            <div>
-              <DenonButton
-                device={denon}
-                bsStyle={this.state.denon.mute === 'ON' ? 'danger' : 'default'}
-                command={this.state.denon.mute === 'ON' ? 'MUOFF' : 'MUON'}
-                buttonStyle={buttonStyle}
-              >
-                <Glyphicon glyph="volume-off"/>
-              </DenonButton>
-              <DenonButton
-                device={denon}
-                command="MVDOWN"
-                buttonStyle={buttonStyle}
-              >
-                <Glyphicon glyph="volume-down"/>
-              </DenonButton>
-              <DenonButton
-                device={denon}
-                command="MVUP"
-                buttonStyle={buttonStyle}
-              >
-                <Glyphicon glyph="volume-up"/>
-              </DenonButton>
-            </div>
+            {this.renderAudio()}
           </div>
         </Tile>
       )
