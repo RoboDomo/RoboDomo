@@ -65,7 +65,7 @@ export default class Switch extends React.Component {
     }
     return (
       <div
-        style={{textAlign: 'center'}}
+        style={{textAlign: 'center', width: 128, height: 128, color: 'yellow'}}
         onClick={this.onClick}
       >
         <SwitchIcon size={24} style={{marginBottom: 10}}/>

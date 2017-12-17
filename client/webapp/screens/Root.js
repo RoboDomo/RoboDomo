@@ -7,7 +7,7 @@ const bowser = require('bowser')
 class Root extends React.Component {
   renderInner() {
     return (
-      <div style={{height: '100%', overflowX: 'hidden', overflowY: 'auto'}}>
+      <div style={{flex: 1, overflowX: 'hidden', overflowY: 'auto'}}>
         <TopBar/>
         <div style={{paddingTop: 50, paddingBottom: 50}}>
           {this.props.children}

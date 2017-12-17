@@ -33,11 +33,12 @@ export default class MQTTButton extends Component {
   }
 
   onClick(e) {
-    e.preventDefault()
+    e.stopPropagation()
     const props = this.props
 
     // this.setState({ enabled: false })
     MQTT.publish(props.topic, props.value)
     // this.setState({ enabled: this.isEnabled })
+    return false
   }
 }
