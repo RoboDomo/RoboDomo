@@ -98,7 +98,10 @@ export default class SpaTile extends React.Component {
         <Tile
           width={tileSize}
           height={1}
-          onClick="poolcontrol"
+          onClick={() => {
+            localStorage.setItem('autelis-radio', 'spa')
+            window.location.hash = 'poolcontrol'
+          }}
           backgroundColor={backgroundColor}
           color={color}
         >

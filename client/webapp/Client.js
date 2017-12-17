@@ -3,6 +3,7 @@ import DashboardScreen from './screens/DashboadScreen'
 import ThingsScreen from './screens/ThingsScreen'
 import ThermostatScreen from './screens/ThermostatScreen'
 import AutelisScreen from './screens/AutelisScreen'
+import PoolControlScreen from './screens/PoolControlScreen'
 import WeatherScreen from './screens/WeatherScreen'
 import TiVoScreen from './screens/TiVoScreen'
 import LGTVScreen from './screens/LGTVScreen'
@@ -50,7 +51,8 @@ export default {
     dashboard:   {text: 'Dashboard', screen: DashboardScreen},
     things:      {text: 'SmartThings', screen: ThingsScreen},
     thermostat:  {text: 'Thermostat', screen: ThermostatScreen},
-    poolcontrol: {text: 'Pool Control', screen: AutelisScreen},
+    autelis:     {text: 'Autelis', screen: AutelisScreen},
+    poolcontrol: {text: 'Autelis Panel', screen: AutelisScreen},
     weather:     {text: 'Weather', screen: WeatherScreen},
     tivo:        {text: 'TiVo', screen: TiVoScreen},
     lgtv:        {text: 'LG TV', screen: LGTVScreen},

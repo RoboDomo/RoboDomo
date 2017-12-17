@@ -90,7 +90,7 @@ export default {
   routes: {
     dashboard:   {text: 'Dashboard', screen: DashboardScreen},
     harmony:     {text: 'Harmony Hubs', screen: HarmonyScreen},
-    poolcontrol: {text: 'Pool Control', screen: AutelisScreen},
+    poolcontrol: {text: 'Autelis', screen: AutelisScreen},
     weather:     {text: 'Weather', screen: WeatherScreen},
     bravia:      {text: 'Sony TV', screen: BraviaScreen},
     things:      {text: 'SmartThings', screen: ThingsScreen},

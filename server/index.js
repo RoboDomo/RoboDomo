@@ -6,6 +6,7 @@ const chalk         = require('chalk'),
       host          = process.env.host || '0.0.0.0',
       port          = process.env.port || 3000,
       express       = require('express'),
+      proxy         = require('express-http-proxy'),
       app           = express(),
       server        = require('http').Server(app),
       router        = express.Router(),
@@ -16,28 +17,29 @@ const chalk         = require('chalk'),
       webpackConfig = require('./webpack.config.js'),
       compiler      = webpack(webpackConfig)
 
-process.on("unhandledRejection", (reason, promise) => {
-    console.log(chalk.red.bold("[PROCESS] Unhandled Promise Rejection"));
-    console.log(chalk.red.bold("- - - - - - - - - - - - - - - - - - -"));
-    console.log(reason);
-    console.log(chalk.red.bold("- -"));
+process.on('unhandledRejection', (reason, promise) => {
+  console.log(chalk.red.bold('[PROCESS] Unhandled Promise Rejection'))
+  console.log(chalk.red.bold('- - - - - - - - - - - - - - - - - - -'))
+  console.log(reason)
+  console.log(chalk.red.bold('- -'))
 })
 
+app.use('/poolcontrol', proxy('poolcontrol'))
 app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo:     true,
-    publicPath: webpackConfig.output.publicPath
+  noInfo:     true,
+  publicPath: webpackConfig.output.publicPath
 }))
 app.use(require('webpack-hot-middleware')(compiler))
 
 router.get('/', function (req, res) {
-    res.sendFile(INDEX)
+  res.sendFile(INDEX)
 })
 router.get('/setup', function (req, res) {
-    res.sendFile(SETUP)
+  res.sendFile(SETUP)
 })
 
 router.get('/img/transparent.gif', (req, res) => {
-    res.sendFile(__dirname + '/static/img/transparent.gif')
+  res.sendFile(__dirname + '/static/img/transparent.gif')
 })
 
 app.use(router)
@@ -45,6 +47,6 @@ app.use(express.static('node_modules'))
 app.use(express.static('server/static'))
 
 server.listen(port, host, () => {
-    console.log(`Server listening at ${host}:${port}`)
+  console.log(`Server listening at ${host}:${port}`)
 })
 

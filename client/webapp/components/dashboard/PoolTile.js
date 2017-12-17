@@ -91,7 +91,10 @@ export default class PoolTile extends React.Component {
           color={color}
           width={tileSize}
           height={1}
-          onClick="poolcontrol"
+          onClick={() => {
+            localStorage.setItem('autelis-radio', 'pool')
+            window.location.hash = 'poolcontrol'
+          }}
         >
           <div style={{textAlign: 'center'}}>
             {renderPool()}
