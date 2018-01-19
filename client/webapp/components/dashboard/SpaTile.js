@@ -39,6 +39,7 @@ export default class SpaTile extends React.Component {
         return null
       }
 
+      console.log('state', this.state)
       const tileSize = Config.screenSize === 'small' ? 1 : 2
       const state           = this.state,
             on              = this.isOn('spa')
@@ -51,7 +52,8 @@ export default class SpaTile extends React.Component {
 
       function renderControl(ndx, text, big) {
         const thing = state[ndx]
-        if (thing && state.spa !== 'on' ||  thing.toLowerCase() === 'off' ) {
+        //        if (thing && state.spa !== 'on' ||  thing.toLowerCase() === 'off' ) {
+        if (!thing  ||  thing.toLowerCase() === 'off' ) {
           return null
         }
         if (big) {

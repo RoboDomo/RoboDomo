@@ -44,10 +44,13 @@ MQTT.once('connect', () => {
   render(history.location)
   history.listen(render)
 })
-
 MQTT.connect()
+
 if (module.hot) {
   module.hot.accept('./screens/Root', () => {
+    console.log('hot')
     render(history.location)
   })
 }
+
+

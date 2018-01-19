@@ -14,8 +14,24 @@ export default class ClockTile extends React.Component {
     }
   }
 
+  renderStockPrice() {
+    const state = this.state
+    if (!state.symbol) {
+      return null
+    }
+    if (state.change >= 0) {
+      return (
+        <div style={{fontSize: 15, color: 'green'}}>{state.symbol + ' ' + state.price + ' ' + state.pctChange + '%'}</div>
+      )
+    }
+    return (
+      <div style={{fontSize: 15, color: 'red'}}>{state.symbol + ' ' + state.price + ' ' + state.pctChange + '%'}</div>
+    )
+  }
   render() {
-    const tileSize = Config.screenSize === 'small' ? 1 : 2
+    const tileSize = Config.screenSize === 'small' ? 1 : 2,
+          state = this.state
+
     return (
       <Tile
         //backgroundColor="white"
@@ -26,10 +42,11 @@ export default class ClockTile extends React.Component {
         <div style={{textAlign: 'center'}}>
           <div style={{fontSize: 37*tileSize, width: '100%'}}>
             {this.state.time}
-            <span style={{fontSize: 20*tileSize}}>{this.state.seconds}</span>
+            <span style={{fontSize: 20*tileSize}}>{state.seconds}</span>
           </div>
-          <div style={{fontSize: 20}}>{this.state.day}</div>
-          <div style={{fontSize: 20}}>{this.state.date}</div>
+          <div style={{fontSize: 20}}>{state.day}</div>
+          <div style={{fontSize: 20}}>{state.date}</div>
+          {this.renderStockPrice()}
         </div>
       </Tile>
     )
@@ -51,13 +68,37 @@ export default class ClockTile extends React.Component {
         date:    d.toLocaleDateString(),
         day:     dayNames[d.getDay()],
       })
-    })
+    }, 1000)
+
+    this.fetcher = setInterval(async () => {
+      try {
+        const response = await fetch('https://api.iextrading.com/1.0/stock/SPY/quote'),
+              json = await response.json()
+
+        if (this.fetcher) {
+          // we're still mounted
+          this.setState({
+            symbol:    json.symbol,
+            price:     json.latestPrice,
+            change:    json.change,
+            pctChange: parseInt(json.changePercent * 100*100+.5)/100
+          })
+        }
+      }
+      catch (e) {
+        console.dir(e)
+      }
+    }, 1000 * 5)
   }
 
   componentWillUnmount() {
     if (this.timer) {
       clearInterval(this.timer)
       this.timer = null
+    }
+    if (this.fetcher) {
+      clearInterval(this.fetcher)
+      this.fetcher = null
     }
   }
 }

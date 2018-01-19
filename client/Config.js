@@ -31,6 +31,9 @@ const screenSize = function () {
   else if (window.innerWidth <= 601) {
     return 'small'
   }
+  else if (window.innerWidth >= 1024) {
+    return 'normal'
+  }
   return bowser.mobile ? 'small' : 'normal'
 }()
 
@@ -124,6 +127,7 @@ export default {
             controls: [
               {device: 'Ceiling Fan', type: 'fan'},
               {device: 'Ceiling Fan Light', type: 'dimmer'},
+              {device: 'Kitchen Sink Light', type: 'switch'},
               {device: 'Kitchen Lights', type: 'dimmer'},
               {device: 'Porch Light', type: 'switch'},
               {device: 'Outside Light', type: 'switch'},
@@ -133,8 +137,8 @@ export default {
           {type: 'macro', name: 'TV Mood', label: 'TV Mood'},
           {type: 'macro', name: 'TV Break', label: 'TV Break'},
           {type: 'macro', name: 'TV Resume', label: 'TV Resume'},
-          {type: 'macro', name: 'Theater On', label: 'Theater On'},
-          {type: 'macro', name: 'Theater Off', label: 'Theater Off'},
+          //          {type: 'macro', name: 'Theater On', label: 'Theater On'},
+          //          {type: 'macro', name: 'Theater Off', label: 'Theater Off'},
           {type: 'macro', name: 'Bedtime', label: 'Bedtime'},
         ]
       },
@@ -148,11 +152,15 @@ export default {
           {type: 'spa'},
           {
             type:     'smartthings',
-            title:    'Theater',
+            title:    'Master Bedroom',
             controls: [
-              {device: 'Bedroom Fan', type: 'fan'},
-              {device: 'Bedroom Light', type: 'dimmer'},
               {device: 'Bathroom Light', type: 'dimmer'},
+              {device: 'Bedroom Fan', type: 'fan'},
+              {device: 'Bedroom Lamp', type: 'switch'},
+              {device: 'Bedroom Light', type: 'dimmer'},
+              {device: 'Kitchen Sink Light', type: 'switch'},
+              {device: 'Kitchen Lights', type: 'dimmer'},
+              {device: 'Entryway Lights', type: 'switch'},
             ]
           },
           {type: 'macro', name: 'Good Night', label: 'Good Night'},
@@ -169,6 +177,7 @@ export default {
             type:     'smartthings',
             title:    'Office',
             controls: [
+              {device: 'Office Dimmer', type: 'dimmer'},
               {device: 'Office Light', type: 'dimmer'},
               {device: 'Office Fan', type: 'fan'},
               {device: 'Back Room Light', type: 'dimmer'},
@@ -218,6 +227,7 @@ export default {
     things: [
       {name: 'Ceiling Fan Light', type: 'dimmer', rooms: ['Theater']},
       {name: 'Ceiling Fan', type: 'fan', rooms: ['Theater']},
+      {name: 'Office Dimmer', type: 'dimmer', rooms: ['Theater', 'Office', 'Back Room']},
       {name: 'Office Light', type: 'dimmer', rooms: ['Theater', 'Office', 'Back Room']},
       {name: 'Office Fan', type: 'fan', rooms: ['Theater', 'Office', 'Back Room']},
       {name: 'Back Room Light', type: 'dimmer', rooms: ['Theater', 'Office', 'Back Room']},
@@ -227,6 +237,7 @@ export default {
       {name: 'Kitchen Lights', type: 'dimmer', rooms: ['Kitchen', 'Theater', 'Bedroom']},
       {name: 'Bathroom Light', type: 'dimmer', rooms: ['Bathroom', 'Bedroom']},
       {name: 'Bathroom Sensor', type: 'motion', rooms: ['Bathroom', 'Bedroom']},
+      {name: 'Bedroom Lamp', type: 'switch', rooms: ['Bedroom']},
       {name: 'Bedroom Fan', type: 'fan', rooms: ['Bedroom']},
       {name: 'Bedroom Light', type: 'dimmer', rooms: ['Bedroom']},
       {name: 'Goodnight Button', type: 'button', rooms: ['Bedroom']},

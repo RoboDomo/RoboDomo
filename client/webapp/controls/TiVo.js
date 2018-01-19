@@ -23,12 +23,41 @@ import AudioControls from '../components/denon/AudioControls'
 const SPACE = 10
 
 export default class TiVo extends Component {
+  get historyKey() {
+    return this.device + '-history'
+  }
+
+  get history() {
+    try {
+      if (this.state.history) {
+        return this.state.history
+      }
+      return JSON.parse(localStorage.getItem(this.historyKey))
+    }
+    catch (e) {
+      return []
+    }
+  }
+
+  set history(value) {
+    try {
+      localStorage.setItem(this.historyKey, JSON.stringify(value))
+    }
+    catch (e) {
+      console.dir(e)
+    }
+  }
+
   constructor(props) {
     super()
 
+    this.keyIndex = 0
     this.device = props.box.device
     this.denon  = props.box.denon
-    this.state  = {showVolume: false}
+    this.state  = {
+      showVolume: false,
+      history:    this.history
+    }
 
     this.status_topic                = Config.mqtt.tivo + '/' + this.device + '/status/'
     this.status_topic_length         = this.status_topic.length
@@ -50,25 +79,6 @@ export default class TiVo extends Component {
     return <Glyphicon glyph={glyph}/>
   }
 
-  rendeMiniButton(command, text, bsStyle) {
-    const style = Config.ui.miniButtonStyle
-
-    if (!text) {
-      text = command
-    }
-
-    return (
-      <RemoteButton
-        topic={this.set_topic}
-        value={command}
-        bsStyle={bsStyle}
-        buttonStyle={style}
-      >
-        {text}
-      </RemoteButton>
-    )
-  }
-
   renderButton(command, text, bsStyle, buttonStyle) {
     if (!text) {
       text = command
@@ -76,6 +86,7 @@ export default class TiVo extends Component {
 
     return (
       <RemoteButton
+        key={this.keyIndex++}
         topic={this.set_topic}
         value={command}
         bsStyle={bsStyle}
@@ -89,6 +100,7 @@ export default class TiVo extends Component {
   renderMiniButton(command, text, style) {
     return (
       <RemoteButton
+        key={this.keyIndex++}
         topic={this.set_topic}
         value={command}
         buttonStyle={Config.ui.miniButtonStyle}
@@ -101,8 +113,6 @@ export default class TiVo extends Component {
   }
 
   renderTivoLocation() {
-    const device = this.device
-
     return (
       <div style={{marginTop: SPACE, textAlign: 'center'}}>
         <ButtonGroup>
@@ -145,8 +155,6 @@ export default class TiVo extends Component {
   }
 
   renderABCD() {
-    const device = this.device
-
     return (
       <div style={{marginTop: SPACE, textAlign: 'center'}}>
         <ButtonGroup>
@@ -182,9 +190,6 @@ export default class TiVo extends Component {
   }
 
   renderPlaybackControls() {
-    const device = this.device,
-          style  = Config.ui.miniButtonStyle
-
     return (
       <div style={{marginTop: SPACE, textAlign: 'center'}}>
         <ButtonGroup>
@@ -204,7 +209,7 @@ export default class TiVo extends Component {
   renderFavorites() {
     const small                     = Config.screenSize === 'small',
           device                    = this.device,
-          {buttonStyle, buttonSize} = Config.ui,
+          {buttonSize}              = Config.ui,
           favorites                 = Config.tivoFavorites,
           guide                     = this.state.guide,
           dropdownId                = `${device}-favorites`
@@ -219,7 +224,7 @@ export default class TiVo extends Component {
         title="Favorites"
         bsSize={buttonSize}
       >
-        {favorites.map((o, key) => {
+        {favorites.map((o) => {
           if (guide) {
             const info = guide[o.channel],
                   img  = info.logo ?
@@ -255,15 +260,13 @@ export default class TiVo extends Component {
 
   renderHistory() {
     const small                         = Config.screenSize === 'small',
-          history                       = this.state.history || [],
+          history                       = this.history,
           guide                         = this.state.guide,
-          {miniButtonStyle, buttonSize} = Config.ui
-
-    let ndx = 0
+          {miniButtonStyle}             = Config.ui
 
     return (
       <span>
-        {history.reverse().map((o, ndx) => {
+        {history.reverse().map((o) => {
           const key = this.device + '-history-' + o
 
           if (guide) {
@@ -342,20 +345,26 @@ export default class TiVo extends Component {
     const key        = topic.substr(this.status_topic_length),
           newState   = {},
           state      = this.state || {},
-          history    = this.state.history || [],
+          history    = this.history || [],
           maxHistory = window.innerHeight > 500 ? 4 : 2
 
     if (key === 'channel') {
-      if (state.channel && message !== state.channel) {
+      if (!history.length) {
+        history.unshift(message)
+        newState.history = history
+        this.history = history
+        //        localStorage.setItem(this.device + '-history', JSON.stringify(history))
+      }
+      else if (state.channel && message !== state.channel) {
         if (history.indexOf(message) === -1) {
           if (history.length > maxHistory) {
             history.pop()
           }
           history.unshift(message)
           newState.history = history
+          this.history = history
+          //          localStorage.setItem(this.device + '-history', JSON.stringify(history))
         }
-        // uncomment this to clear history
-        // newValue.history = []
       }
     }
 

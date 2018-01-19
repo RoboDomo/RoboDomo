@@ -17,7 +17,7 @@ class Root extends React.Component {
   }
 
   render() {
-    if (Config.screenSize === 'small' || bowser.tablet) {
+    if (Config.screenSize === 'small' || (bowser.tablet && window.innerWidth < 1024)) {
       return this.renderInner()
     }
     else {
