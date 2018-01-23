@@ -70,23 +70,28 @@ export default class ClockTile extends React.Component {
       })
     }, 1000)
 
+    let fetching = false
     this.fetcher = setInterval(async () => {
-      try {
-        const response = await fetch('https://api.iextrading.com/1.0/stock/SPY/quote'),
-              json = await response.json()
+      if (!fetching) {
+        fetching = true
+        try {
+          const response = await fetch('https://api.iextrading.com/1.0/stock/SPY/quote'),
+                json = await response.json()
 
-        if (this.fetcher) {
+          if (this.fetcher) {
           // we're still mounted
-          this.setState({
-            symbol:    json.symbol,
-            price:     json.latestPrice,
-            change:    json.change,
-            pctChange: parseInt(json.changePercent * 100*100+.5)/100
-          })
+            this.setState({
+              symbol:    json.symbol,
+              price:     json.latestPrice,
+              change:    json.change,
+              pctChange: parseInt(json.changePercent * 100*100+.5)/100
+            })
+          }
         }
-      }
-      catch (e) {
-        console.dir(e)
+        catch (e) {
+          console.dir(e)
+        }
+        fetching = false
       }
     }, 1000 * 5)
   }

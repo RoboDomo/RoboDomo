@@ -22,7 +22,7 @@ const history = createHistory()
 const routes = Config.routes
 
 function render(loc/*, action*/) {
-  const hash      = loc.hash.substr(1) || 'dashboard',
+  const hash      = loc || 'dashboard',
         entry     = routes[hash] || routes.notFound,
         Component = entry.screen
 
@@ -41,8 +41,15 @@ function renderComponent(Component) {
 }
 
 MQTT.once('connect', () => {
-  render(history.location)
-  history.listen(render)
+  if (!sessionStorage.getItem('first-load')) {
+    sessionStorage.setItem('first-load', 'false')
+    window.location.hash = 'dashboard'
+    render()
+  }
+  else {
+    render(history.location.hash.substr(1))
+  }
+  history.listen((loc) => render(loc.hash.substr(1)))
 })
 MQTT.connect()
 
