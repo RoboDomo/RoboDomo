@@ -1,41 +1,41 @@
 // Client configuration settings
 
-import DashboardScreen from './webapp/screens/DashboadScreen'
-import ThingsScreen from './webapp/screens/ThingsScreen'
-import ThermostatScreen from './webapp/screens/ThermostatScreen'
-import AutelisScreen from './webapp/screens/AutelisScreen'
-import WeatherScreen from './webapp/screens/WeatherScreen'
-import TiVoScreen from './webapp/screens/TiVoScreen'
-import LGTVScreen from './webapp/screens/LGTVScreen'
-import BraviaScreen from './webapp/screens/BraviaScreen'
-import DenonScreen from './webapp/screens/DenonScreen'
-import HarmonyScreen from './webapp/screens/HarmonyScreen'
-import NotFoundScreen from './webapp/screens/NotFoundScreen'
+import DashboardScreen from './webapp/screens/DashboadScreen';
+import ThingsScreen from './webapp/screens/ThingsScreen';
+import ThermostatScreen from './webapp/screens/ThermostatScreen';
+import AutelisScreen from './webapp/screens/AutelisScreen';
+import WeatherScreen from './webapp/screens/WeatherScreen';
+import TiVoScreen from './webapp/screens/TiVoScreen';
+import LGTVScreen from './webapp/screens/LGTVScreen';
+import BraviaScreen from './webapp/screens/BraviaScreen';
+import DenonScreen from './webapp/screens/DenonScreen';
+import HarmonyScreen from './webapp/screens/HarmonyScreen';
+import NotFoundScreen from './webapp/screens/NotFoundScreen';
 
 const lgtvFavorites = [
   'amazon', 'hulu', 'netflix', 'vudu', 'youtube', 'hdmi1', 'hdmi2', 'hdmi3', 'hdmi4'
-]
+];
 
 // lowercase these
 // if one of the TV's apps contains these strings, it becomes a favorite
 const braviaFavorites = [
   'netflix', 'amazon', 'hulu', 'youtube', 'cnn', 'starz', 'hbo go', 'epix', 'showtime anytime', 'fox news', 'cbs'
-]
+];
 
-const bowser = require('bowser')
+const bowser = require('bowser');
 
 const screenSize = function () {
   if (bowser.ipad) {
-    return 'normal'
+    return 'normal';
   }
   else if (window.innerWidth <= 601) {
-    return 'small'
+    return 'small';
   }
   else if (window.innerWidth >= 1024) {
-    return 'normal'
+    return 'normal';
   }
-  return bowser.mobile ? 'small' : 'normal'
-}()
+  return bowser.mobile ? 'small' : 'normal';
+}();
 
 export default {
   name:     'RoboDomo Home Automation System',
@@ -164,6 +164,7 @@ export default {
             ]
           },
           {type: 'macro', name: 'Good Night', label: 'Good Night'},
+          {type: 'macro', name: 'Good Morning', label: 'Good Morning'},
         ]
       },
       {
@@ -320,4 +321,4 @@ export default {
       //      {name: 'Master Bedroom', device: 'harmony-hub2'},
     ]
   },
-}
+};
