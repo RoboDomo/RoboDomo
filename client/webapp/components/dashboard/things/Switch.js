@@ -1,106 +1,97 @@
-import Config from '../../../../Config'
+import Config from "../../../../Config";
+import React, { Component } from "react";
 
-import React from 'react'
-import Label from 'react-bootstrap/lib/Label'
+import Label from "react-bootstrap/lib/Label";
 
-import MQTT from '../../../../lib/MQTT'
+import MQTT from "../../../../lib/MQTT";
 
-import SwitchIcon from 'react-icons/lib/ti/lightbulb'
+import SwitchIcon from "react-icons/lib/ti/lightbulb";
 
-export default class Switch extends React.Component {
+export default class Switch extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.status_topic        = Config.mqtt.smartthings + '/' + props.name + '/'
-    this.status_topic_length = this.status_topic.length
-    this.set_topic           = this.status_topic
+    this.status_topic = Config.mqtt.smartthings + "/" + props.name + "/";
+    this.status_topic_length = this.status_topic.length;
+    this.set_topic = this.status_topic;
 
-    this.onStateChange = this.onStateChange.bind(this)
-    this.onClick       = this.onClick.bind(this)
+    this.onStateChange = this.onStateChange.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   renderSmall() {
     const state = this.state,
-          props = this.props,
-          on    = state.switch === 'on'
+      props = this.props,
+      on = state.switch === "on";
 
     return (
-      <h3
-        onClick={this.onClick}
-      >
+      <h3 onClick={this.onClick}>
         {props.label}
-        <Label
-          style={{marginLeft: 10}}
-          bsStyle={on ? 'success' : 'primary'}
-        >
-          {on ? 'ON' : 'OFF'}
+        <Label style={{ marginLeft: 10 }} bsStyle={on ? "success" : "primary"}>
+          {on ? "ON" : "OFF"}
         </Label>
       </h3>
-    )
+    );
   }
 
   render() {
     const state = this.state,
-          props = this.props
+      props = this.props;
 
     if (!state) {
-      return null
+      return null;
     }
 
     //if (Config.screenSize === 'small') {
     //  return this.renderSmall()
     //}
 
-    if (state.switch === 'off') {
+    if (state.switch === "off") {
       return (
-        <div
-          style={{textAlign: 'center'}}
-          onClick={this.onClick}
-        >
-          <SwitchIcon size={24} style={{marginBottom: 10}}/>
+        <div style={{ textAlign: "center" }} onClick={this.onClick}>
+          <SwitchIcon size={24} style={{ marginBottom: 10 }} />
           <div>{props.label}</div>
-          <div style={{fontSize: 30}}>Off</div>
+          <div style={{ fontSize: 30 }}>Off</div>
         </div>
-      )
+      );
     }
     return (
       <div
-        style={{textAlign: 'center', color: 'yellow'}}
+        style={{ textAlign: "center", color: "yellow" }}
         onClick={this.onClick}
       >
-        <SwitchIcon size={24} style={{marginBottom: 10}}/>
+        <SwitchIcon size={24} style={{ marginBottom: 10 }} />
         <div>{props.label}</div>
-        <div style={{fontSize: 30}}>On</div>
+        <div style={{ fontSize: 30 }}>On</div>
       </div>
-    )
+    );
   }
 
   onStateChange(topic, newState) {
-    const newVal = {}
+    const newVal = {};
 
-    newVal[topic.substr(this.status_topic_length)] = newState
-    this.setState(newVal)
+    newVal[topic.substr(this.status_topic_length)] = newState;
+    this.setState(newVal);
   }
 
   componentDidMount() {
-    MQTT.subscribe(this.status_topic + 'switch', this.onStateChange)
+    MQTT.subscribe(this.status_topic + "switch", this.onStateChange);
   }
 
   componentWillUnmount() {
-    MQTT.unsubscribe(this.status_topic + 'switch', this.onStateChange)
+    MQTT.unsubscribe(this.status_topic + "switch", this.onStateChange);
   }
 
   onClick(e) {
-    e.stopPropagation()
+    e.stopPropagation();
 
-    if (this.state.switch === 'on') {
-      this.setState({switch: 'off'})
-      MQTT.publish(this.set_topic + 'switch/set', 'off')
+    if (this.state.switch === "on") {
+      this.setState({ switch: "off" });
+      MQTT.publish(this.set_topic + "switch/set", "off");
+    } else {
+      this.setState({ switch: "on" });
+      MQTT.publish(this.set_topic + "switch/set", "on");
     }
-    else {
-      this.setState({switch: 'on'})
-      MQTT.publish(this.set_topic + 'switch/set', 'on')
-    }
-    console.log('click', this.state)
+    console.log("click", this.state);
   }
 }

@@ -1,13 +1,13 @@
-import Config from '../../Config'
+import Config from '../../Config';
 
-import React from 'react'
+import React from 'react';
 
-import Navbar from 'react-bootstrap/lib/Navbar'
-import Nav from 'react-bootstrap/lib/Nav'
-import NavItem from 'react-bootstrap/lib/NavItem'
-import Glyphicon from 'react-bootstrap/lib/Glyphicon'
+import Navbar from 'react-bootstrap/lib/Navbar';
+import Nav from 'react-bootstrap/lib/Nav';
+import NavItem from 'react-bootstrap/lib/NavItem';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
-import NavMenu from './NavMenu'
+import NavMenu from './NavMenu';
 
 const styles = {
   topBar: {
@@ -16,42 +16,42 @@ const styles = {
     zIndex: 1,
     margin: 0
   }
-}
+};
 
-document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen
+document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen;
 
 function isFullscreen() {
-  return document.webkitIsFullScreen || document.mozIsFullScreen  || Document.fullscreen
+  return document.webkitIsFullScreen || document.mozIsFullScreen  || Document.fullscreen;
 }
 
 function toggleFullscreen(element) {
   if (!isFullscreen()) {
     if (element.requestFullscreen) {
-      element.requestFullscreen()
+      element.requestFullscreen();
     } else if (element.mozRequestFullScreen) {
-      element.mozRequestFullScreen()
+      element.mozRequestFullScreen();
     } else if (element.webkitRequestFullScreen) {
-      element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT)
+      element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
     }
   }
   else if (document.exitFullscreen) {
-    document.exitFullscreen()
+    document.exitFullscreen();
   }
   else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen()
+    document.webkitExitFullscreen();
   }
   else if (document.mozExitFullscreen) {
-    document.mozExitFullscreen()
+    document.mozExitFullscreen();
   }
 }
 
 class TopBar extends React.Component {
   state = { menu: false }
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.handleMenuClick = ::this.handleMenuClick
-    this.handleToggleFullscreen = ::this.handleToggleFullscreen
+    this.handleMenuClick = ::this.handleMenuClick;
+    this.handleToggleFullscreen = ::this.handleToggleFullscreen;
   }
 
   render() {
@@ -63,7 +63,7 @@ class TopBar extends React.Component {
               onClick={this.handleToggleFullscreen}
             >
               <Glyphicon style={{marginRight: 8}} glyph="home"/>
-              {Config.location}
+              {Config.location + ' ' + window.innerWidth + 'x' + window.innerHeight}
               <Glyphicon style={{marginLeft: 8}} glyph={isFullscreen() ? 'resize-small' : 'resize-full'}/>
             </Navbar.Brand>
             <div style={{float: 'right'}}>
@@ -82,25 +82,25 @@ class TopBar extends React.Component {
           toggle={this.handleMenuClick}
         />
       </div>
-    )
+    );
   }
 
   handleToggleFullscreen() {
     if (Config.screenSize === 'small' && document.fullscreenEnabled) {
-      toggleFullscreen(document.documentElement)
+      toggleFullscreen(document.documentElement);
       setTimeout(() => {
-        this.forceUpdate()
-      }, 10)
+        this.forceUpdate();
+      }, 10);
     }
   }
 
   handleMenuClick() {
-    this.setState({menu: !this.state.menu})
+    this.setState({menu: !this.state.menu});
   }
 
   setRoute(e) {
-    window.location.hash = e.target.getAttribute('data-route')
+    window.location.hash = e.target.getAttribute('data-route');
   }
 }
 
-export default TopBar
+export default TopBar;
