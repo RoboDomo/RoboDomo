@@ -220,8 +220,8 @@ export default {
             title: "Office",
             controls: [
               { device: "Office Dimmer", type: "dimmer" },
-              { device: "Office Light", type: "dimmer" },
               { device: "Office Fan", type: "fan" },
+              { device: "Office Light", type: "dimmer" },
               { device: "Back Room Light", type: "dimmer" },
               { device: "Back Room Fan", type: "fan" },
               { device: "Back Room Switch", type: "switch" }
