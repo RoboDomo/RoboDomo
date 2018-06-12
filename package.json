@@ -30,7 +30,6 @@
     "express-http-proxy": "^1.2.0",
     "flexboxgrid": "^6.3.1",
     "halogen": "^0.2.0",
-    "harmonyhubjs-client": "github:robodomo/harmonyhubjs-client",
     "history": "^4.7.2",
     "hoek": "^5.0.3",
     "jquery": "^3.3.1",
