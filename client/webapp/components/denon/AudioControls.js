@@ -24,7 +24,6 @@ export default class AudioControl extends Component {
   }
 
   renderGlyphButton(command, glyph, bsStyle) {
-    console.log('command', command, 'topic', this.set_topic)
     return (
       <DenonButton
         bsStyle={bsStyle}

@@ -1,8 +1,8 @@
-import Config from '../../Config'
-import React from 'react'
-import TopBar from '../components/TopBar'
+import Config from '../../Config';
+import React from 'react';
+import TopBar from '../components/TopBar';
 
-const bowser = require('bowser')
+const bowser = require('bowser');
 
 class Root extends React.Component {
   renderInner() {
@@ -13,12 +13,12 @@ class Root extends React.Component {
           {this.props.children}
         </div>
       </div>
-    )
+    );
   }
 
   render() {
-    if (Config.screenSize === 'small' || bowser.tablet) {
-      return this.renderInner()
+    if (Config.screenSize === 'small' || (bowser.tablet && window.innerWidth < 1024)) {
+      return this.renderInner();
     }
     else {
       return (
@@ -29,14 +29,14 @@ class Root extends React.Component {
             </div>
           </div>
         </div>
-      )
+      );
     }
   }
 
   onEnd(ndx) {
-    const hash = Object.keys(Config.routes)[ndx] || ''
-    location.hash = '#' + hash
+    const hash = Object.keys(Config.routes)[ndx] || '';
+    location.hash = '#' + hash;
   }
 }
 
-export default Root
+export default Root;

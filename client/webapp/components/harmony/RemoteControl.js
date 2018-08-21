@@ -38,6 +38,21 @@ export default class RemoteControl extends Component {
     this.screenSize        = window.innerWidth === 600 ? 'normal' : Config.screenSize 
   }
 
+  shouldComponentUpdate() { 
+    return true 
+  }
+
+  componentWillUpdate(props) {
+    this.topic             = props.topic
+    this.denon             = props.denon
+    this.buttons           = props.buttons
+    this.renderPlainButton = props.renderPlainButton
+    this.controlGroup      = props.controlGroup
+    this.renderButton      = props.renderButton
+    this.renderMiniButton  = props.renderMiniButton
+    this.screenSize        = window.innerWidth === 600 ? 'normal' : Config.screenSize 
+  }
+
   /**
      * Dynamically generate navigation (back, Live TV, TiVo, etc.) buttons
      * @returns {XML}
