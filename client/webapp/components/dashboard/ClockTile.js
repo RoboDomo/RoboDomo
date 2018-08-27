@@ -16,9 +16,20 @@ const dayNames = [
 export default class ClockTile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      time: ""
-    };
+    const s = localStorage.getItem("clockTile");
+    try {
+      if (s) {
+        this.state = JSON.parse(s);
+      } else {
+        this.state = {
+          time: ""
+        };
+      }
+    } catch (e) {
+      this.state = {
+        time: ""
+      };
+    }
   }
 
   renderStockPrice() {
@@ -71,18 +82,36 @@ export default class ClockTile extends Component {
         min = String(d.getMinutes()),
         minutes = min.length === 1 ? "0" + min : min,
         sec = String(d.getSeconds()),
-        seconds = sec.length === 1 ? "0" + sec : sec;
+        seconds = sec.length === 1 ? "0" + sec : sec,
+        newState = {
+          time: (hour || "12") + ":" + minutes,
+          seconds: seconds,
+          date: d.toLocaleDateString(),
+          day: dayNames[d.getDay()]
+        };
 
-      this.setState({
-        time: (hour || "12") + ":" + minutes,
-        seconds: seconds,
-        date: d.toLocaleDateString(),
-        day: dayNames[d.getDay()]
-      });
+      localStorage.setItem("clockTile", JSON.stringify(newState));
+      this.setState(newState);
     }, 1000);
 
     let fetching = false;
     this.fetcher = setInterval(async () => {
+      const d = new Date(),
+        s = localStorage.getItem("clockTile");
+      if (d.getHours() < 6 || d.getHours() > 2) {
+        if (!s) {
+          return;
+        }
+        try {
+          const oldState = JSON.parse(s);
+          if (oldState.symbol || this.state.symbol) {
+            return;
+          }
+        } catch (e) {
+          console.log(e);
+          localStorage.removeItem("clockTile");
+        }
+      }
       if (!fetching) {
         fetching = true;
         try {
@@ -93,12 +122,14 @@ export default class ClockTile extends Component {
 
           if (this.fetcher) {
             // we're still mounted
-            this.setState({
+            const newState = {
               symbol: json.symbol,
               price: json.latestPrice,
               change: json.change,
               pctChange: parseInt(json.changePercent * 100 * 100 + 0.5) / 100
-            });
+            };
+            localStorage.setItem("clockTile", JSON.stringify(newState));
+            this.setState(newState);
           }
         } catch (e) {
           console.dir(e);
