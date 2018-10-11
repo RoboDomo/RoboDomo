@@ -98,7 +98,7 @@ export default class ClockTile extends Component {
     this.fetcher = setInterval(async () => {
       const d = new Date(),
         s = localStorage.getItem("clockTile");
-      if (d.getHours() < 6 || d.getHours() > 2) {
+      if (d.getHours() < 6 || d.getHours() > 14) {
         if (!s) {
           return;
         }
