@@ -1,163 +1,164 @@
-import Config from '../../../Config'
+import Config from "../../../Config";
 
-import React from 'react'
+import React from "react";
 
-import Image from 'react-bootstrap/lib/Image'
-import Glyphicon from 'react-bootstrap/lib/Glyphicon'
+import Image from "react-bootstrap/lib/Image";
+import Glyphicon from "react-bootstrap/lib/Glyphicon";
 
-import Tile from './Tile'
+import Tile from "./Tile";
 
-import DenonButton from '../../../common/MQTTButton'
+import DenonButton from "../../../common/MQTTButton";
 
-import MQTT from '../../../lib/MQTT'
+import MQTT from "../../../lib/MQTT";
 
 // TODO: support Bravia, various combinations of TVs, receivers, etc.
 export default class TheaterTile extends React.Component {
   constructor(props) {
-    super(props)
-    const config = props.config
+    super(props);
+    const config = props.config;
 
-    this.tv                = config.tv
-    this.tv_status_topic   = `${Config.mqtt.lgtv}/${this.tv}/status/`
-    this.tivo              = config.tivo
-    this.tivo_status_topic = `${Config.mqtt.tivo}/${this.tivo}/status/`
+    this.tv = config.tv;
+    this.tv_status_topic = `${Config.mqtt.lgtv}/${this.tv}/status/`;
+    this.tivo = config.tivo;
+    this.tivo_status_topic = `${Config.mqtt.tivo}/${this.tivo}/status/`;
     // find tivo in Config and get the guide id
-    this.guide             = null
-    Config.tivo.boxes.forEach((box) => {
+    this.guide = null;
+    Config.tivo.boxes.forEach(box => {
       if (box.device === this.tivo) {
         if (this.guide) {
-          return
+          return;
         }
-        this.guide              = box.guide
-        this.guide_status_topic = `${Config.mqtt.tvguide}/${this.guide}/status/`
+        this.guide = box.guide;
+        this.guide_status_topic = `${Config.mqtt.tvguide}/${
+          this.guide
+        }/status/`;
       }
-    })
+    });
 
-    this.denon = config.denon || null
+    this.denon = config.denon || null;
     if (this.denon) {
-      this.denon_status_topic = `${Config.mqtt.denon}/${this.denon}/status/`
-      this.denon_set_topic = this.denon_status_topic.replace('status', 'set') + 'command'
+      this.denon_status_topic = `${Config.mqtt.denon}/${this.denon}/status/`;
+      this.denon_set_topic =
+        this.denon_status_topic.replace("status", "set") + "command";
     }
 
-    this.tvStateChange      = this.tvStateChange.bind(this)
-    this.tivoStateChange    = this.tivoStateChange.bind(this)
-    this.tvguideStateChange = this.tvguideStateChange.bind(this)
-    this.denonStateChange   = this.denonStateChange.bind(this)
+    this.tvStateChange = this.tvStateChange.bind(this);
+    this.tivoStateChange = this.tivoStateChange.bind(this);
+    this.tvguideStateChange = this.tvguideStateChange.bind(this);
+    this.denonStateChange = this.denonStateChange.bind(this);
   }
 
   renderOff() {
     return (
       <Tile
         onClick="harmony"
-        width={Config.screenSize === 'small' ? 1 : 2}
-        height={Config.screenSize === 'small' ? 1 : 2}
+        width={Config.screenSize === "small" ? 1 : 2}
+        height={Config.screenSize === "small" ? 1 : 2}
       >
         <h1>TV is off</h1>
       </Tile>
-    )
+    );
   }
 
   renderAudio() {
     if (!this.denon_set_topic) {
-      return null
+      return null;
     }
-    const buttonStyle = Config.ui.miniButtonStyle
+    const buttonStyle = Config.ui.miniButtonStyle;
 
     return (
       <div>
         <DenonButton
-          bsStyle={this.state.denon['MU'] === 'ON' ? 'danger' : 'default'}
+          bsStyle={this.state.denon["MU"] === "ON" ? "danger" : "default"}
           topic={this.denon_set_topic}
-          value={this.state.denon['MU'] === 'ON' ? 'MUOFF' : 'MUON'}
+          value={this.state.denon["MU"] === "ON" ? "MUOFF" : "MUON"}
           buttonStyle={buttonStyle}
         >
-          <Glyphicon glyph="volume-off"/>
+          <Glyphicon glyph="volume-off" />
         </DenonButton>
         <DenonButton
           topic={this.denon_set_topic}
           value="MVDOWN"
           buttonStyle={buttonStyle}
         >
-          <Glyphicon glyph="volume-down"/>
+          <Glyphicon glyph="volume-down" />
         </DenonButton>
         <DenonButton
           topic={this.denon_set_topic}
           value="MVUP"
           buttonStyle={buttonStyle}
         >
-          <Glyphicon glyph="volume-up"/>
+          <Glyphicon glyph="volume-up" />
         </DenonButton>
       </div>
-    )
+    );
   }
   render() {
-    const state = this.state
+    const state = this.state;
+    console.log("theater tile state", state);
 
     if (!state || !state.tivo || !state.tv || !state.tvguide || !state.denon) {
-      return null
+      return null;
     }
 
     if (!state.tv.foregroundApp) {
-      return this.renderOff()
+      return this.renderOff();
     }
     try {
-      const tivo        = state.tivo,
-            channel     = tivo.channel,
-            tv          = state.tv,
-            tvguide     = state.tvguide,
-            info        = tvguide.channels[channel],
-            appId       = tv.foregroundApp.appId,
-            app         = tv.launchPoints[appId],
-            denon       = this.denon,
-            buttonStyle = Config.ui.miniButtonStyle
+      const tivo = state.tivo,
+        channel = tivo.channel,
+        tv = state.tv,
+        tvguide = state.tvguide,
+        info = tvguide.channels[channel],
+        appId = tv.foregroundApp.appId,
+        app = tv.launchPoints[appId],
+        denon = this.denon,
+        buttonStyle = Config.ui.miniButtonStyle;
 
       if (!app) {
-        return this.renderOff()
+        return this.renderOff();
       }
-      if (Config.screenSize === 'small') {
+      if (Config.screenSize === "small") {
         return (
-          <Tile
-            onClick="harmony"
-          >
+          <Tile onClick="harmony">
             <div>
-              <Image style={{width: 32, height: 'auto', marginRight: 10}} src={info.logo.URL}/>
+              <Image
+                style={{ width: 32, height: "auto", marginRight: 10 }}
+                src={info.logo.URL}
+              />
               <DenonButton
                 device={denon}
-                bsStyle={this.state.denon.mute === 'ON' ? 'danger' : 'default'}
-                command={this.state.denon.mute === 'ON' ? 'MUOFF' : 'MUON'}
+                bsStyle={this.state.denon.mute === "ON" ? "danger" : "default"}
+                command={this.state.denon.mute === "ON" ? "MUOFF" : "MUON"}
                 buttonStyle={buttonStyle}
               >
-                <Glyphicon glyph="volume-off"/>
+                <Glyphicon glyph="volume-off" />
               </DenonButton>
               <DenonButton
                 device={denon}
                 command="MVDOWN"
                 buttonStyle={buttonStyle}
               >
-                <Glyphicon glyph="volume-down"/>
+                <Glyphicon glyph="volume-down" />
               </DenonButton>
               <DenonButton
                 device={denon}
                 command="MVUP"
                 buttonStyle={buttonStyle}
               >
-                <Glyphicon glyph="volume-up"/>
+                <Glyphicon glyph="volume-up" />
               </DenonButton>
             </div>
           </Tile>
-        )
+        );
       }
       return (
-        <Tile
-          onClick="harmony"
-          width="2"
-          height="2"
-        >
-          <div style={{textAlign: 'center'}}>
+        <Tile onClick="harmony" width="2" height="2">
+          <div style={{ textAlign: "center" }}>
             <h4>{app.title}</h4>
             <div>
               <Image
-                style={{width: 64, height: 'auto'}}
+                style={{ width: 64, height: "auto" }}
                 src={app.largeIcon}
                 thumbnail
                 responsive
@@ -165,7 +166,7 @@ export default class TheaterTile extends React.Component {
             </div>
             <div>
               <Image
-                style={{width: 64, height: 'auto'}}
+                style={{ width: 64, height: "auto" }}
                 src={info.logo.URL}
                 thumbnail
                 responsive
@@ -175,80 +176,97 @@ export default class TheaterTile extends React.Component {
             {this.renderAudio()}
           </div>
         </Tile>
-      )
-    }
-    catch (e) {
-      return null
+      );
+    } catch (e) {
+      return null;
     }
   }
 
   tvStateChange(topic, newState) {
-    const state    = this.state || {},
-          newValue = state.tv || {},
-          key      = topic.substr(this.tv_status_topic.length)
+    const state = this.state || {},
+      newValue = state.tv || {},
+      key = topic.substr(this.tv_status_topic.length);
 
-    newValue[key] = newState
-    this.setState({tv: newValue})
+    newValue[key] = newState;
+    this.setState({ tv: newValue });
   }
 
   tivoStateChange(topic, newState) {
-    const state    = this.state || {},
-          newValue = state.tv || {},
-          key      = topic.substr(this.tivo_status_topic.length)
+    const state = this.state || {},
+      newValue = state.tv || {},
+      key = topic.substr(this.tivo_status_topic.length);
 
-    newValue[key] = newState
-    this.setState({tivo: newValue})
+    newValue[key] = newState;
+    this.setState({ tivo: newValue });
   }
 
   tvguideStateChange(topic, newState) {
-    const state    = this.state || {},
-          newValue = state.tv || {},
-          key      = topic.substr(this.guide_status_topic.length)
+    const state = this.state || {},
+      newValue = state.tv || {},
+      key = topic.substr(this.guide_status_topic.length);
 
-    newValue[key] = newState
-    this.setState({tvguide: newValue})
+    newValue[key] = newState;
+    this.setState({ tvguide: newValue });
   }
 
   denonStateChange(topic, newState) {
-    const state    = this.state || {},
-          newValue = state.tv || {},
-          key      = topic.substr(this.denon_status_topic.length)
+    const state = this.state || {},
+      newValue = state.tv || {},
+      key = topic.substr(this.denon_status_topic.length);
 
-    newValue[key] = newState
-    this.setState({denon: newValue})
+    newValue[key] = newState;
+    this.setState({ denon: newValue });
   }
 
   componentDidMount() {
     if (this.denon) {
-      MQTT.subscribe(this.denon_status_topic + 'MU', this.denonStateChange)
-      MQTT.subscribe(this.denon_status_topic + 'MV', this.denonStateChange)
+      MQTT.subscribe(this.denon_status_topic + "MU", this.denonStateChange);
+      MQTT.subscribe(this.denon_status_topic + "MV", this.denonStateChange);
     }
     if (this.guide) {
-      MQTT.subscribe(this.guide_status_topic + 'channels', this.tvguideStateChange)
+      MQTT.subscribe(
+        this.guide_status_topic + "channels",
+        this.tvguideStateChange
+      );
     }
     if (this.tivo) {
-      MQTT.subscribe(this.tivo_status_topic + 'channel', this.tivoStateChange)
+      MQTT.subscribe(this.tivo_status_topic + "channel", this.tivoStateChange);
     }
     if (this.tv) {
-      MQTT.subscribe(this.tv_status_topic + 'foregroundApp', this.tvStateChange)
-      MQTT.subscribe(this.tv_status_topic + 'launchPoints', this.tvStateChange)
+      MQTT.subscribe(
+        this.tv_status_topic + "foregroundApp",
+        this.tvStateChange
+      );
+      MQTT.subscribe(this.tv_status_topic + "launchPoints", this.tvStateChange);
     }
   }
 
   componentWillUnmount() {
     if (this.denon) {
-      MQTT.unsubscribe(this.denon_status_topic + 'MU', this.denonStateChange)
-      MQTT.unsubscribe(this.denon_status_topic + 'MV', this.denonStateChange)
+      MQTT.unsubscribe(this.denon_status_topic + "MU", this.denonStateChange);
+      MQTT.unsubscribe(this.denon_status_topic + "MV", this.denonStateChange);
     }
     if (this.guide) {
-      MQTT.unsubscribe(this.guide_status_topic + 'channels', this.tvguideStateChange)
+      MQTT.unsubscribe(
+        this.guide_status_topic + "channels",
+        this.tvguideStateChange
+      );
     }
     if (this.tivo) {
-      MQTT.unsubscribe(this.tivo_status_topic + 'channel', this.tivoStateChange)
+      MQTT.unsubscribe(
+        this.tivo_status_topic + "channel",
+        this.tivoStateChange
+      );
     }
     if (this.tv) {
-      MQTT.unsubscribe(this.tv_status_topic + 'foregroundApp', this.tvStateChange)
-      MQTT.unsubscribe(this.tv_status_topic + 'launchPoints', this.tvStateChange)
+      MQTT.unsubscribe(
+        this.tv_status_topic + "foregroundApp",
+        this.tvStateChange
+      );
+      MQTT.unsubscribe(
+        this.tv_status_topic + "launchPoints",
+        this.tvStateChange
+      );
     }
   }
 }
