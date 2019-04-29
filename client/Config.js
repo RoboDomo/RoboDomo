@@ -197,9 +197,9 @@ export default {
               { device: "Kitchen Sink Light", type: "switch" },
               { device: "Kitchen Lights", type: "dimmer" },
               { device: "Entryway Lights", type: "switch" },
-              { device: "Hall Bath Dimmer", type: "dimmer" },
               { device: "Hall Bath Lights", type: "switch" },
-              { device: "Hall Bath Fan", type: "switch" }
+              { device: "Hall Bath Fan", type: "switch" },
+              { device: "Hall Bath Dimmer", type: "dimmer" }
             ]
           },
           { type: "macro", name: "Good Night", label: "Good Night" },

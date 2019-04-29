@@ -15,7 +15,7 @@ export default class Fan extends React.Component {
     this.set_topic = this.status_topic;
 
     this.onStateChange = this.onStateChange.bind(this);
-    this.onClick = this.onClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   renderSmall() {
@@ -42,7 +42,7 @@ export default class Fan extends React.Component {
       }
     }
     return (
-      <h3 onClick={this.onClick}>
+      <h3 onClick={this.handleClick}>
         <FanIcon />
         {props.label}
         <Label style={{ marginLeft: 10 }} bsStyle={style}>
@@ -71,13 +71,14 @@ export default class Fan extends React.Component {
         value = "High";
       }
     }
+
     return (
       <div
         style={{
           textAlign: "center",
           color: state.switch == "on" ? "yellow" : undefined
         }}
-        onClick={this.onClick}
+        onClick={this.handleClick}
       >
         <FanIcon size={24} style={{ marginBottom: 10 }} />
         <div>{props.label}</div>
@@ -86,7 +87,7 @@ export default class Fan extends React.Component {
     );
   }
 
-  onClick(e) {
+  handleClick(e) {
     const state = this.state;
 
     e.stopPropagation();
@@ -106,11 +107,19 @@ export default class Fan extends React.Component {
 
     if (value) {
       this.setState({
-        level: value,
-        switch: "on"
+        level: value
       });
-      MQTT.publish(this.set_topic + "switch/set", "on");
-      MQTT.publish(this.set_topic + "level/set", value);
+      if (this.state.switch === "off") {
+        MQTT.publish(this.set_topic + "switch/set", "on");
+        const handle = setInterval(() => {
+          if (this.state.switch !== "off") {
+            MQTT.publish(this.set_topic + "level/set", value);
+            clearInterval(handle);
+          }
+        });
+      } else {
+        MQTT.publish(this.set_topic + "level/set", value);
+      }
     } else {
       this.setState({
         switch: "off"
